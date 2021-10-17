@@ -1,5 +1,5 @@
-import Welcome from './Components/welcome';
-import MyClimbs from './Components/my-climbs';
+import Welcome from './Components/Welcome';
+import MyClimbs from './Components/My-Climbs';
 import Nav from './Nav';
 import {
   BrowserRouter as Router,
