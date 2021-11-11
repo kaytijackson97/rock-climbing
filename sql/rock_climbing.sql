@@ -10,7 +10,7 @@ create table grading_system (
 create table route_grade (
 	route_grade_id int primary key auto_increment,
     grading_id int not null,
-	route_grade varchar(7) not null, 
+	route_grade varchar(7) not null,
     constraint fk_route_grade_grading
 		foreign key (grading_id)
         references grading_system(grading_id)
