@@ -1,9 +1,18 @@
 package learn.rockClimbing.models;
 
 public class Gym {
+    private int gymId;
     private String name;
     private String city;
     private String state;
+
+    public int getGymId() {
+        return gymId;
+    }
+
+    public void setGymId(int gymId) {
+        this.gymId = gymId;
+    }
 
     public String getName() {
         return name;

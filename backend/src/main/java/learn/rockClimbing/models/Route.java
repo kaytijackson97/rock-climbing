@@ -3,11 +3,28 @@ package learn.rockClimbing.models;
 import java.time.LocalDate;
 
 public class Route {
+    private int routeId;
+    private Gym gym;
     private RouteType routeType;
-    private BoulderingGrade boulderingGrade;
     private RouteGrade routeGrade;
     private int attempts;
     private LocalDate setDate;
+
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
+    }
+
+    public Gym getGym() {
+        return gym;
+    }
+
+    public void setGym(Gym gym) {
+        this.gym = gym;
+    }
 
     public RouteType getRouteType() {
         return routeType;
@@ -15,14 +32,6 @@ public class Route {
 
     public void setRouteType(RouteType routeType) {
         this.routeType = routeType;
-    }
-
-    public BoulderingGrade getBoulderingGrade() {
-        return boulderingGrade;
-    }
-
-    public void setBoulderingGrade(BoulderingGrade boulderingGrade) {
-        this.boulderingGrade = boulderingGrade;
     }
 
     public RouteGrade getRouteGrade() {

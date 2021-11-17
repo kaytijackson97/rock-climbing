@@ -3,14 +3,20 @@ package learn.rockClimbing.models;
 import java.util.List;
 
 public class Climber {
+    private int climberId;
     private String name;
     private int age;
     private int monthsClimbing;
-    private BoulderingGrade hardestBoulder;
-    private RouteGrade hardestTopRope;
-    private RouteGrade hardestLead;
     private List<Route> climbs;
     private List<Gym> gyms;
+
+    public int getClimberId() {
+        return climberId;
+    }
+
+    public void setClimberId(int climberId) {
+        this.climberId = climberId;
+    }
 
     public String getName() {
         return name;
@@ -34,30 +40,6 @@ public class Climber {
 
     public void setMonthsClimbing(int monthsClimbing) {
         this.monthsClimbing = monthsClimbing;
-    }
-
-    public BoulderingGrade getHardestBoulder() {
-        return hardestBoulder;
-    }
-
-    public void setHardestBoulder(BoulderingGrade hardestBoulder) {
-        this.hardestBoulder = hardestBoulder;
-    }
-
-    public RouteGrade getHardestTopRope() {
-        return hardestTopRope;
-    }
-
-    public void setHardestTopRope(RouteGrade hardestTopRope) {
-        this.hardestTopRope = hardestTopRope;
-    }
-
-    public RouteGrade getHardestLead() {
-        return hardestLead;
-    }
-
-    public void setHardestLead(RouteGrade hardestLead) {
-        this.hardestLead = hardestLead;
     }
 
     public List<Route> getClimbs() {
