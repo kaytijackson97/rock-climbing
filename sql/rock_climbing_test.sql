@@ -68,39 +68,39 @@ begin
 	-- password is set to "P@ssw0rd!"
 	insert into route_grade (grading_system, grade_level)
 		values
-		('Bouldering', 'VIntro'),
-		('Bouldering', 'V0'),
-		('Bouldering', 'V1'),
-		('Bouldering', 'V2'),
-		('Bouldering', 'V3'),
-		('Bouldering', 'V4'),
-		('Bouldering', 'V5'),
-		('Bouldering', 'V6'),
-		('Bouldering', 'V7'),
-		('Bouldering', 'V8'),
-		('Bouldering', 'V9'),
-		('Bouldering', 'V10'),
-		('Bouldering', 'V11'),
-		('Bouldering', 'V12'),
-		('Yosemite', '5.Intro'),
-		('Yosemite', '5.4'),
-		('Yosemite', '5.5'),
-		('Yosemite', '5.6'),
-		('Yosemite', '5.7'),
-		('Yosemite', '5.8'),
-		('Yosemite', '5.9'),
-		('Yosemite', '5.10a'),
-		('Yosemite', '5.10b'),
-		('Yosemite', '5.10c'),
-		('Yosemite', '5.10d'),
-		('Yosemite', '5.11a'),
-		('Yosemite', '5.11b'),
-		('Yosemite', '5.11c'),
-		('Yosemite', '5.11d'),
-		('Yosemite', '5.12a'),
-		('Yosemite', '5.12b'),
-		('Yosemite', '5.12c'),
-		('Yosemite', '5.12d');
+		('BOULDERING', 'VIntro'),
+		('BOULDERING', 'V0'),
+		('BOULDERING', 'V1'),
+		('BOULDERING', 'V2'),
+		('BOULDERING', 'V3'),
+		('BOULDERING', 'V4'),
+		('BOULDERING', 'V5'),
+		('BOULDERING', 'V6'),
+		('BOULDERING', 'V7'),
+		('BOULDERING', 'V8'),
+		('BOULDERING', 'V9'),
+		('BOULDERING', 'V10'),
+		('BOULDERING', 'V11'),
+		('BOULDERING', 'V12'),
+		('YOSEMITE', '5.Intro'),
+		('YOSEMITE', '5.4'),
+		('YOSEMITE', '5.5'),
+		('YOSEMITE', '5.6'),
+		('YOSEMITE', '5.7'),
+		('YOSEMITE', '5.8'),
+		('YOSEMITE', '5.9'),
+		('YOSEMITE', '5.10a'),
+		('YOSEMITE', '5.10b'),
+		('YOSEMITE', '5.10c'),
+		('YOSEMITE', '5.10d'),
+		('YOSEMITE', '5.11a'),
+		('YOSEMITE', '5.11b'),
+		('YOSEMITE', '5.11c'),
+		('YOSEMITE', '5.11d'),
+		('YOSEMITE', '5.12a'),
+		('YOSEMITE', '5.12b'),
+		('YOSEMITE', '5.12c'),
+		('YOSEMITE', '5.12d');
 		
 	insert into gym (gym_name, city, state)
 		values
@@ -110,9 +110,9 @@ begin
 		
 	insert into route (gym_id, route_grade_id, route_type, attempts)
 		values
-		(1, 1, 'Bouldering', 1),
-		(2, 2, 'Bouldering', 2),
-		(3, 3, 'Yosemite', 3);
+		(1, 1, 'BOULDERING', 1),
+		(2, 2, 'BOULDERING', 2),
+		(3, 3, 'YOSEMITE', 3);
 		
 	insert into climber (climber_name, climber_age, length_of_time_climbing)
 		values
