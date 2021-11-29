@@ -10,6 +10,8 @@ public class ClimberMapper implements RowMapper<Climber> {
     @Override
     public Climber mapRow(ResultSet resultSet, int i) throws SQLException {
         Climber climber = new Climber();
+
+        climber.setClimberId(resultSet.getInt("climber_id"));
         climber.setName(resultSet.getString("climber_name"));
         climber.setAge(resultSet.getInt("climber_age"));
         climber.setMonthsClimbing(resultSet.getInt("length_of_time_climbing"));

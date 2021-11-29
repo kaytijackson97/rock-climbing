@@ -8,7 +8,7 @@ import java.util.List;
 public interface RouteGradeRepository {
     List<RouteGrade> findAll();
 
-    List<RouteGrade> findByGradingSystem(GradingSystem gradingSystem);
+    List<RouteGrade> findRouteGradeByGradingSystem(GradingSystem gradingSystem);
 
-    RouteGrade findById(int routeGradeId);
+    RouteGrade findRouteGradeById(int routeGradeId);
 }

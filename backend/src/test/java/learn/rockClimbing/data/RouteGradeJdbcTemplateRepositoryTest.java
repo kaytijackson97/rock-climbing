@@ -1,5 +1,6 @@
 package learn.rockClimbing.data;
 
+import learn.rockClimbing.models.GradingSystem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,23 @@ class RouteGradeJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindRouteGradesIfValidGradingSystem() {
+    void shouldFindAllRouteGrades() {
+        assertNotNull(routeGradeRepository.findAll());
+    }
 
+    @Test
+    void shouldFindRouteGradesIfValidGradingSystem() {
+        assertNotNull(routeGradeRepository.findRouteGradeByGradingSystem(GradingSystem.BOULDERING));
     }
 
     @Test
     void shouldFindRouteGradeIfValidId() {
-
+        assertNotNull(routeGradeRepository.findRouteGradeById(1));
     }
 
     @Test
     void shouldNotFindByIdIfInvalidId() {
-
+        assertNull(routeGradeRepository.findRouteGradeById(-1));
     }
 
 }

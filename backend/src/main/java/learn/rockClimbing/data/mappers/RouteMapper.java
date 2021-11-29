@@ -12,6 +12,7 @@ public class RouteMapper implements RowMapper<Route> {
     public Route mapRow(ResultSet resultSet, int i) throws SQLException {
         Route route = new Route();
 
+        route.setRouteId(resultSet.getInt("route_id"));
         String routeType = resultSet.getString("route_type");
         route.setRouteType(RouteType.valueOf(routeType));
         route.setAttempts(resultSet.getInt("attempts"));

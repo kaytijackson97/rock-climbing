@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -21,20 +22,21 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
 
     @Override
     public List<Climber> findAll() {
-        final String sql = "select climber_name, climber_age, length_of_time_climbing from climber;";
+        final String sql = "select climber_id, climber_name, climber_age, length_of_time_climbing from climber;";
         return jdbcTemplate.query(sql, new ClimberMapper());
     }
 
     @Override
-    public Climber findById(int climberId) {
-        final String sql = "select climber_name, climber_age, length_of_time_climbing from climber " +
+    public Climber findByClimberId(int climberId) {
+        final String sql = "select climber_id, climber_name, climber_age, length_of_time_climbing from climber " +
                 "where climber_id = ?;";
         return jdbcTemplate.query(sql, new ClimberMapper(), climberId).stream().findFirst().orElse(null);
     }
 
     @Override
     public Climber addClimber(Climber climber) {
-        if (climber == null) {
+        if (climber == null ||
+            climber.getName() == null) {
             return null;
         }
 
@@ -59,7 +61,8 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
 
     @Override
     public boolean editClimber(Climber climber) {
-        if (climber == null) {
+        if (climber == null ||
+            climber.getName() == null) {
             return false;
         }
 
@@ -77,7 +80,15 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     }
 
     @Override
+    @Transactional
     public boolean deleteClimberById(int climberId) {
+        jdbcTemplate.update("set sql_safe_updates = 0;");
+
+        final String deleteClimberGymSql = "delete from climber_gym where climber_id = ?;";
+        jdbcTemplate.update(deleteClimberGymSql, climberId);
+
+        jdbcTemplate.update("set sql_safe_updates = 1;");
+
         final String sql = "delete from climber where climber_id = ?;";
         return jdbcTemplate.update(sql, climberId) > 0;
     }

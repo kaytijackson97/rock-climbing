@@ -22,15 +22,24 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
 
     @Override
     public List<Route> findAll() {
-        final String sql = "select r.gym_id, rg.route_grade, r.route_type, r.attempts, r.set_date " +
+        final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
                 "from route r " +
                 "inner join route_grade rg on r.route_grade_id = rg.route_grade_id;";
         return jdbcTemplate.query(sql, new RouteMapper());
     }
 
     @Override
+    public Route findRouteById(int routeId) {
+        final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
+                "from route r " +
+                "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
+                "where r.route_id = ?;";
+        return jdbcTemplate.query(sql, new RouteMapper(), routeId).stream().findFirst().orElse(null);
+    }
+
+    @Override
     public List<Route> findRoutesByGym(int gymId) {
-        final String sql = "select r.gym_id, rg.route_grade, r.route_type, r.attempts, r.set_date " +
+        final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
                 "from route r " +
                 "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
                 "where r.gym_id = ?;";
@@ -39,7 +48,7 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
 
     @Override
     public List<Route> findRoutesByClimber(int climberId) {
-        final String sql = "select r.gym_id, rg.route_grade, r.route_type, r.attempts, r.set_date " +
+        final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
                 "from route r " +
                 "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
                 "inner join climber_gym cg on cg.gym_id = r.gym_id " +
@@ -50,11 +59,11 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
 
     @Override
     public List<Route> findRoutesByGymAndClimber(int gymId, int climberId) {
-        final String sql = "select r.gym_id, rg.route_grade, r.route_type, r.attempts, r.set_date " +
+        final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
                 "from route r " +
                 "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
                 "inner join climber_gym cg on cg.gym_id = r.gym_id " +
-                "inner join climber c on c.climber_id = cg.climber_id" +
+                "inner join climber c on c.climber_id = cg.climber_id " +
                 "where c.climber_id = ? " +
                 "and r.gym_id = ?;";
         return jdbcTemplate.query(sql, new RouteMapper(), climberId, gymId);
@@ -97,15 +106,15 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
         final String sql = "update route set " +
                 "gym_id = ?, " +
                 "route_grade_id = ?, " +
-                "route_type = ? " +
-                "attempts = ? " +
+                "route_type = ?, " +
+                "attempts = ?, " +
                 "set_date = ? " +
                 "where route_id = ?;";
 
         return jdbcTemplate.update(sql,
                 route.getGym().getGymId(),
                 route.getRouteGrade().getRouteGradeId(),
-                route.getRouteType(),
+                route.getRouteType().toString(),
                 route.getAttempts(),
                 route.getSetDate(),
                 route.getRouteId()) > 0;

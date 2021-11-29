@@ -7,7 +7,7 @@ import java.util.List;
 public interface ClimberRepository {
     List<Climber> findAll();
 
-    Climber findById(int climberId);
+    Climber findByClimberId(int climberId);
 
     Climber addClimber(Climber climber);
 

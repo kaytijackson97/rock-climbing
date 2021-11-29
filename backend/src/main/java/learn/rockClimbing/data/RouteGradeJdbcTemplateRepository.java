@@ -18,21 +18,21 @@ public class RouteGradeJdbcTemplateRepository implements RouteGradeRepository {
 
     @Override
     public List<RouteGrade> findAll() {
-        final String sql = "select grading_system, grade_level from route_grade;";
+        final String sql = "select route_grade_id, grading_system, grade_level from route_grade;";
         return jdbcTemplate.query(sql, new RouteGradeMapper());
     }
 
     @Override
-    public List<RouteGrade> findByGradingSystem(GradingSystem gradingSystem) {
-        final String sql = "select grade_level " +
+    public List<RouteGrade> findRouteGradeByGradingSystem(GradingSystem gradingSystem) {
+        final String sql = "select route_grade_id, grade_level " +
                 "from route_grade " +
                 "where grading_system = ?;";
-        return jdbcTemplate.query(sql, new RouteGradeMapper(), gradingSystem.toString());
+        return jdbcTemplate.query(sql, new RouteGradeMapper(), gradingSystem);
     }
 
     @Override
-    public RouteGrade findById(int routeGradeId) {
-        final String sql = "select grading_system, grade_level " +
+    public RouteGrade findRouteGradeById(int routeGradeId) {
+        final String sql = "select route_grade_id, grading_system, grade_level " +
                 "from route_grade " +
                 "where route_grade_id = ?;";
         return jdbcTemplate.query(sql, new RouteGradeMapper(), routeGradeId).stream().findFirst().orElse(null);

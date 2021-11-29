@@ -7,6 +7,8 @@ import java.util.List;
 public interface RouteRepository {
     List<Route> findAll();
 
+    Route findRouteById(int routeId);
+
     List<Route> findRoutesByGym(int gymId);
 
     List<Route> findRoutesByClimber(int climberId);

@@ -22,13 +22,13 @@ public class GymJdbcTemplateRepository implements GymRepository {
 
     @Override
     public List<Gym> findAll() {
-        final String sql = "select gym_name, city, state from gym";
+        final String sql = "select gym_id, gym_name, city, state from gym";
         return jdbcTemplate.query(sql, new GymMapper());
     }
 
     @Override
     public List<Gym> findGymsByClimberId(int climberId) {
-        final String sql = "select g.gym_name, g.city, g.state from gym g" +
+        final String sql = "select g.gym_id, g.gym_name, g.city, g.state from gym g " +
                 "inner join climber_gym cg on cg.gym_id = g.gym_id " +
                 "inner join climber c on c.climber_id = cg.climber_id " +
                 "where c.climber_id = ?;";
@@ -36,14 +36,20 @@ public class GymJdbcTemplateRepository implements GymRepository {
     }
 
     @Override
-    public Gym findById(int gymId) {
-        final String sql = "select gym_name, city, state from gym where gym_id = ?;";
+    public Gym findGymById(int gymId) {
+        final String sql = "select gym_id, gym_name, city, state from gym where gym_id = ?;";
         return jdbcTemplate.query(sql, new GymMapper(), gymId).stream().findFirst().orElse(null);
     }
 
     @Override
     public Gym addGym(Gym gym) {
         if (gym == null) {
+            return null;
+        }
+
+        if (gym.getName() == null ||
+            gym.getCity() == null ||
+            gym.getState() == null) {
             return null;
         }
 
@@ -72,6 +78,12 @@ public class GymJdbcTemplateRepository implements GymRepository {
             return false;
         }
 
+        if (gym.getName() == null ||
+            gym.getCity() == null ||
+            gym.getState() == null) {
+            return false;
+        }
+
         final String sql = "update gym set " +
             "gym_name = ?, " +
             "city = ?, " +
@@ -94,10 +106,13 @@ public class GymJdbcTemplateRepository implements GymRepository {
         final String deleteRouteSql = "delete from route where gym_id = ?;";
         jdbcTemplate.update(deleteRouteSql, gymId);
 
+        final String deleteClimberGymSql = "delete from climber_gym where gym_id = ?;";
+        jdbcTemplate.update(deleteClimberGymSql, gymId);
+
         jdbcTemplate.update("set sql_safe_updates = 1;");
 
         // delete gym
         final String deleteGymSql = "delete from gym where gym_id = ?;";
-        return jdbcTemplate.update(deleteRouteSql, gymId) > 0;
+        return jdbcTemplate.update(deleteGymSql, gymId) > 0;
     }
 }

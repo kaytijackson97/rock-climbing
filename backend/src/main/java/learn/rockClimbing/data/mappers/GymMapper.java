@@ -10,9 +10,13 @@ public class GymMapper implements RowMapper<Gym> {
     @Override
     public Gym mapRow(ResultSet resultSet, int i) throws SQLException {
         Gym gym = new Gym();
+
+        gym.setGymId(resultSet.getInt("gym_id"));
         gym.setName(resultSet.getString("gym_name"));
         gym.setCity(resultSet.getString("city"));
         gym.setState(resultSet.getString("state"));
+
+        System.out.println(gym);
 
         return gym;
     }

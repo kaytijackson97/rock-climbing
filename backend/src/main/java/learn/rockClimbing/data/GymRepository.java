@@ -9,7 +9,7 @@ public interface GymRepository {
 
     List<Gym> findGymsByClimberId(int climberId);
 
-    Gym findById(int gymId);
+    Gym findGymById(int gymId);
 
     Gym addGym(Gym gym);
 
