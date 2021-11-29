@@ -1,7 +1,10 @@
 package learn.rockClimbing.data;
 
 import learn.rockClimbing.data.mappers.ClimberMapper;
+import learn.rockClimbing.data.mappers.GymMapper;
 import learn.rockClimbing.models.Climber;
+import learn.rockClimbing.models.Gym;
+import learn.rockClimbing.models.Route;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -30,7 +33,13 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     public Climber findByClimberId(int climberId) {
         final String sql = "select climber_id, climber_name, climber_age, length_of_time_climbing from climber " +
                 "where climber_id = ?;";
-        return jdbcTemplate.query(sql, new ClimberMapper(), climberId).stream().findFirst().orElse(null);
+        Climber climber = jdbcTemplate.query(sql, new ClimberMapper(), climberId).stream().findFirst().orElse(null);
+
+        if(climber != null) {
+            addGyms(climber);
+        }
+
+        return climber;
     }
 
     @Override
@@ -40,7 +49,8 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
             return null;
         }
 
-        final String sql = "insert into climber (climber_name, climber_age, length_of_time_climbing) values (?,?,?);";
+        final String sql = "insert into climber (climber_name, climber_age, length_of_time_climbing) " +
+                "values (?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -91,5 +101,14 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
 
         final String sql = "delete from climber where climber_id = ?;";
         return jdbcTemplate.update(sql, climberId) > 0;
+    }
+
+    private void addGyms(Climber climber) {
+        final String sql = "select g.gym_id, g.gym_name, g.city, g.state " +
+                "from gym g " +
+                "inner join climber_gym cg on g.gym_id = cg.gym_id " +
+                "where cg.climber_id = ?;";
+        List<Gym> gyms = jdbcTemplate.query(sql, new GymMapper(), climber.getClimberId());
+        climber.setGyms(gyms);
     }
 }

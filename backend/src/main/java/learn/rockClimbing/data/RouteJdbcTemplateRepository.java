@@ -1,7 +1,11 @@
 package learn.rockClimbing.data;
 
+import learn.rockClimbing.data.mappers.GymMapper;
+import learn.rockClimbing.data.mappers.RouteGradeMapper;
 import learn.rockClimbing.data.mappers.RouteMapper;
+import learn.rockClimbing.models.Gym;
 import learn.rockClimbing.models.Route;
+import learn.rockClimbing.models.RouteGrade;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -22,19 +26,25 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
 
     @Override
     public List<Route> findAll() {
-        final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
-                "from route r " +
-                "inner join route_grade rg on r.route_grade_id = rg.route_grade_id;";
+        final String sql = "select route_id, gym_id, route_type, attempts, set_date " +
+                "from route;";
         return jdbcTemplate.query(sql, new RouteMapper());
     }
 
     @Override
     public Route findRouteById(int routeId) {
-        final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
-                "from route r " +
-                "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
-                "where r.route_id = ?;";
-        return jdbcTemplate.query(sql, new RouteMapper(), routeId).stream().findFirst().orElse(null);
+        final String sql = "select route_id, gym_id, route_type, attempts, set_date " +
+                "from route " +
+                "where route_id = ?;";
+
+        Route route = jdbcTemplate.query(sql, new RouteMapper(), routeId).stream().findFirst().orElse(null);
+
+        if (route != null) {
+            addGym(route);
+            addRouteGrade(route);
+        }
+
+        return route;
     }
 
     @Override
@@ -124,5 +134,23 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
     public boolean deleteRouteById(int routeId) {
         final String deleteRouteSql = "delete from route where route_Id = ?;";
         return jdbcTemplate.update(deleteRouteSql, routeId) > 0;
+    }
+
+    private void addGym(Route route) {
+        final String sql = "select g.gym_id, g.gym_name, g.city, g.state " +
+                "from gym g " +
+                "inner join route r on g.gym_id = r.gym_id " +
+                "where r.route_id = ?;";
+        Gym gym = jdbcTemplate.query(sql, new GymMapper(), route.getRouteId()).stream().findFirst().orElse(null);
+        route.setGym(gym);
+    }
+
+    private void addRouteGrade(Route route) {
+        final String sql = "select rg.route_grade_id, rg.grading_system, rg.grade_level " +
+                "from route_grade rg " +
+                "inner join route r on rg.route_grade_id = r.route_grade_id " +
+                "where r.route_id = ?;";
+        RouteGrade routeGrade = jdbcTemplate.query(sql, new RouteGradeMapper(), route.getRouteId()).stream().findFirst().orElse(null);
+        route.setRouteGrade(routeGrade);
     }
 }
