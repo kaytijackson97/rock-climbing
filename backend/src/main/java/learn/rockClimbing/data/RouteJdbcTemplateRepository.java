@@ -25,7 +25,7 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
     }
 
     @Override
-    public List<Route> findAll() {
+    public List<Route> findAllRoutes() {
         final String sql = "select route_id, gym_id, route_type, attempts, set_date " +
                 "from route;";
         return jdbcTemplate.query(sql, new RouteMapper());
@@ -95,7 +95,9 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
             ps.setInt(2, route.getRouteGrade().getRouteGradeId());
             ps.setString(3, route.getRouteType().toString());
             ps.setInt(4, route.getAttempts());
-            ps.setDate(5, Date.valueOf(route.getSetDate()));
+            if (route.getSetDate() != null) {
+                ps.setDate(5, Date.valueOf(route.getSetDate()));
+            }
             return ps;
         }, keyHolder);
 

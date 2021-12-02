@@ -24,7 +24,7 @@ class GymJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAll() {
-        assertTrue(gymRepository.findAll().size() >= 2);
+        assertTrue(gymRepository.findAllGyms().size() >= 2);
     }
 
     @Test

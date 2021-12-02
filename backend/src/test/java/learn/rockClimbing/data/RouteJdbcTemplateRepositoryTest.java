@@ -35,7 +35,7 @@ public class RouteJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAll() {
-        assertNotNull(routeRepository.findAll());
+        assertNotNull(routeRepository.findAllRoutes());
     }
 
     @Test

@@ -24,7 +24,7 @@ class RouteGradeJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAllRouteGrades() {
-        assertNotNull(routeGradeRepository.findAll());
+        assertNotNull(routeGradeRepository.findAllRouteGrades());
     }
 
     @Test

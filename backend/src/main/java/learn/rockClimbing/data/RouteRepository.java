@@ -5,7 +5,7 @@ import learn.rockClimbing.models.Route;
 import java.util.List;
 
 public interface RouteRepository {
-    List<Route> findAll();
+    List<Route> findAllRoutes();
 
     Route findRouteById(int routeId);
 

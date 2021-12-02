@@ -5,7 +5,7 @@ import learn.rockClimbing.models.Climber;
 import java.util.List;
 
 public interface ClimberRepository {
-    List<Climber> findAll();
+    List<Climber> findAllClimbers();
 
     Climber findByClimberId(int climberId);
 

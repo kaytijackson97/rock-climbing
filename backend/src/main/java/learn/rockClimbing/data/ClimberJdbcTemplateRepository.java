@@ -4,7 +4,6 @@ import learn.rockClimbing.data.mappers.ClimberMapper;
 import learn.rockClimbing.data.mappers.GymMapper;
 import learn.rockClimbing.models.Climber;
 import learn.rockClimbing.models.Gym;
-import learn.rockClimbing.models.Route;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -24,7 +23,7 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     }
 
     @Override
-    public List<Climber> findAll() {
+    public List<Climber> findAllClimbers() {
         final String sql = "select climber_id, climber_name, climber_age, length_of_time_climbing from climber;";
         return jdbcTemplate.query(sql, new ClimberMapper());
     }

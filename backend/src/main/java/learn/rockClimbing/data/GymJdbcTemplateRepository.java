@@ -21,7 +21,7 @@ public class GymJdbcTemplateRepository implements GymRepository {
     }
 
     @Override
-    public List<Gym> findAll() {
+    public List<Gym> findAllGyms() {
         final String sql = "select gym_id, gym_name, city, state from gym";
         return jdbcTemplate.query(sql, new GymMapper());
     }

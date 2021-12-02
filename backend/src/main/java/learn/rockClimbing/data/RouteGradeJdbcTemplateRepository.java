@@ -17,7 +17,7 @@ public class RouteGradeJdbcTemplateRepository implements RouteGradeRepository {
     }
 
     @Override
-    public List<RouteGrade> findAll() {
+    public List<RouteGrade> findAllRouteGrades() {
         final String sql = "select route_grade_id, grading_system, grade_level from route_grade;";
         return jdbcTemplate.query(sql, new RouteGradeMapper());
     }
