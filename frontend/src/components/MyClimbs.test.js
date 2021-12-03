@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import MyClimbs from './My-Climbs';
+import MyClimbs from './MyClimbs';
 
 test('renders My Climbs Header', () => {
   render(<MyClimbs />);
