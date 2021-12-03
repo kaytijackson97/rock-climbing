@@ -9,6 +9,9 @@ function Nav() {
                     <li className="nav-item">
                         <Link className="nav-link" to="/my-climbs">My Climbs</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/climbers">Climbers</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

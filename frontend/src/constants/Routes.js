@@ -1,0 +1,16 @@
+export const API_ENDPOINTS = {
+    ROOT: '/api',
+    CLIMBER: 'api/climber',
+    FETCH_CLIMBER_BY_ID: 'api/climber/:climberId',
+    GYM: 'api/gym',
+    FETCH_GYM_BY_ID: 'api/gym/:gymId',
+    FETCH_GYM_BY_CLIMBER: 'api/gym/climber/:climberId',
+    ROUTE: 'api/route',
+    FETCH_ROUTE_BY_GYM: 'api/route/gym/:gymId',
+    FETCH_ROUTE_BY_CLIMBER: 'api/route/climber/:climberId',
+    FETCH_ROUTE_BY_GYM_AND_CLIMBER: 'api/route/gym/:gymId/climber/:climberId',
+    FETCH_ROUTE_BY_ID: 'api/route/:routeId',
+    ROUTE_GRADE: 'api/route-grade',
+    FETCH_ROUTE_GRADE_BY_GRADING_SYSTEM: 'api/route-grade/grading-system/:grading-system',
+    FETCH_ROUTE_GRADE_BY_ID: 'api/route-grade/:route-grade',
+};

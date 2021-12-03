@@ -1,5 +1,7 @@
-import Welcome from './Components/Welcome';
-import MyClimbs from './Components/MyClimbs';
+import Welcome from './components/Welcome';
+import MyClimbs from './components/MyClimbs';
+import ClimberApp from './components/climber/ClimberApp';
+
 import Nav from './Nav';
 import {
   BrowserRouter as Router,
@@ -18,6 +20,9 @@ function App() {
           </Route>
           <Route path='/my-climbs' exact>
             <MyClimbs />
+          </Route>
+          <Route path='/climbers' exact>
+            <ClimberApp />
           </Route>
         </Switch>
       </Router>
