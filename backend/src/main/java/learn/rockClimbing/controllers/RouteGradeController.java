@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/routeGrade")
+@RequestMapping("/api/route-grade")
 public class RouteGradeController {
     private final RouteGradeService routeGradeService;
 
@@ -26,7 +26,7 @@ public class RouteGradeController {
         return routeGradeService.findAllRouteGrades();
     }
 
-    @GetMapping("/gradingSystem/{gradingSystemString}")
+    @GetMapping("/grading-system/{gradingSystemString}")
     public ResponseEntity<Object> findAllRouteGradesByGradingSystem(@PathVariable String gradingSystemString) {
         GradingSystem gradingSystem = GradingSystem.valueOf(gradingSystemString);
 
