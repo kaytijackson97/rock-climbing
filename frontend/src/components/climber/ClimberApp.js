@@ -22,7 +22,6 @@ function ClimberApp() {
         <div>
             <h2>Climbers</h2>
             <ClimberList climbers={climbers} setClimbers={setClimbers} />
-            {console.log('climbers', climbers)}
         </div>
     )
 }

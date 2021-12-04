@@ -2,9 +2,13 @@ import Welcome from './components/Welcome';
 import MyClimbs from './components/myClimbs/MyClimbs';
 import ClimberApp from './components/climber/ClimberApp';
 import ClimberProfile from './components/profile/ClimberProfile';
-import { getAllClimbs } from './actions/climbs.action';
-import { getAllClimbers } from './actions/climbers.action';
 import Nav from './Nav';
+
+// Actions
+import { getAllClimbs } from './actions/climbs.action';
+import { getAllClimbers, setCurrentClimber } from './actions/climbers.action';
+import { getAllGyms } from './actions/gyms.action';
+import { getAllRouteGrades } from './actions/routeGrades.action';
 
 import {
   BrowserRouter as Router,
@@ -15,14 +19,16 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const climbs = useSelector((state) => state.entries);
-  const climbers = useSelector((state) => state.entries);
+  const climbs = useSelector((state) => state.climbs);
+  const climbers = useSelector((state) => state.climbers);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllClimbers());
     dispatch(getAllClimbs());
-}, [dispatch]);
+    dispatch(getAllGyms());
+    dispatch(getAllRouteGrades());
+  }, [dispatch]);
 
   return (
     <div className="App">

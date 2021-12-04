@@ -2,7 +2,7 @@ import { API_ENDPOINTS } from '../../constants/Routes.js';
 import { useState } from "react";
 
 function AddClimber({ climbers = [], setClimbers }) {
-    const { CLIMBER } = API_ENDPOINTS;
+    const { FETCH_CLIMBER } = API_ENDPOINTS;
 
     const [name, setName] = useState("");
     const [age, setAge] = useState(0);
@@ -42,7 +42,7 @@ function AddClimber({ climbers = [], setClimbers }) {
             },
         }
 
-        await fetch(`${process.env.REACT_APP_API_URL}/${CLIMBER}`, init)
+        await fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMBER}`, init)
         .then(response => {
             if (response.status !== 201) {
                 return Promise.reject("Add Climber failed.");

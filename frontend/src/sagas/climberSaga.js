@@ -3,17 +3,20 @@ import { API_ENDPOINTS } from '../constants/Routes';
 import { populateClimbers } from '../actions/climbers.action';
 
 export function* getAllClimbers() {
-    const { CLIMBER } = API_ENDPOINTS;
+    const { FETCH_CLIMBER } = API_ENDPOINTS;
+
+    let climbers;
 
     yield take(getAllClimbers);
-    const { data } = yield fetch(`${process.env.REACT_APP_API_URL}/${CLIMBER}`)
+    yield fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMBER}`)
     .then(response => {
         if (response.status !== 200) {
             return Promise.reject("Get all climbers failed.");
         }
         return response.json();
     })
+    .then(json => {climbers = json})
     .catch(console.log);
 
-    yield put(populateClimbers(data));
+    yield put(populateClimbers(climbers));
 }

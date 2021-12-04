@@ -1,9 +1,13 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import climbReducer from '../reducers/climb.reducer';
-import climberReducer from '../reducers/climber.reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import { initSagas } from '../sagas/index';
+
+// Reducers
+import climbReducer from '../reducers/climb.reducer';
+import climberReducer from '../reducers/climber.reducer';
+import gymReducer from '../reducers/gyms.reducer';
+import routeGradeReducer from '../reducers/routeGrades.reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware];
@@ -14,6 +18,8 @@ const configureStore = () => {
         combineReducers({
             climbs: climbReducer,
             climbers: climberReducer,
+            gyms: gymReducer,
+            routeGrades: routeGradeReducer,
         }), 
         composeWithDevTools(
             applyMiddleware(...middlewares)
