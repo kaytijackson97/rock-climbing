@@ -112,7 +112,7 @@ begin
 		values
 		(1, 1, 'BOULDERING', 1),
 		(2, 2, 'BOULDERING', 2),
-		(3, 3, 'YOSEMITE', 3);
+		(3, 23, 'TOP_ROPE', 3);
 		
 	insert into climber (climber_name, climber_age, length_of_time_climbing)
 		values

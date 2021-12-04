@@ -54,7 +54,7 @@ function AddClimber({ climbers = [], setClimbers }) {
 
     return (
         <div>
-            {climbers}
+            {/* {climbers} */}
         </div>
     )
 }

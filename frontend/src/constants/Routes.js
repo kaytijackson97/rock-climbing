@@ -5,7 +5,7 @@ export const API_ENDPOINTS = {
     GYM: 'api/gym',
     FETCH_GYM_BY_ID: 'api/gym/:gymId',
     FETCH_GYM_BY_CLIMBER: 'api/gym/climber/:climberId',
-    ROUTE: 'api/route',
+    CLIMB: 'api/route',
     FETCH_ROUTE_BY_GYM: 'api/route/gym/:gymId',
     FETCH_ROUTE_BY_CLIMBER: 'api/route/climber/:climberId',
     FETCH_ROUTE_BY_GYM_AND_CLIMBER: 'api/route/gym/:gymId/climber/:climberId',

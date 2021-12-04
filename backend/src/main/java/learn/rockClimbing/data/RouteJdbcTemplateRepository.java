@@ -28,7 +28,15 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
     public List<Route> findAllRoutes() {
         final String sql = "select route_id, gym_id, route_type, attempts, set_date " +
                 "from route;";
-        return jdbcTemplate.query(sql, new RouteMapper());
+
+        List<Route> routes = jdbcTemplate.query(sql, new RouteMapper());
+
+        for (Route route : routes) {
+            addGym(route);
+            addRouteGrade(route);
+        };
+
+        return routes;
     }
 
     @Override
@@ -53,7 +61,15 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
                 "from route r " +
                 "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
                 "where r.gym_id = ?;";
-        return jdbcTemplate.query(sql, new RouteMapper(), gymId);
+
+        List<Route> routes = jdbcTemplate.query(sql, new RouteMapper(), gymId);
+
+        for (Route route : routes) {
+            addGym(route);
+            addRouteGrade(route);
+        };
+
+        return routes;
     }
 
     @Override
@@ -64,7 +80,15 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
                 "inner join climber_gym cg on cg.gym_id = r.gym_id " +
                 "inner join climber c on c.climber_id = cg.climber_id " +
                 "where c.climber_id = ?;";
-        return jdbcTemplate.query(sql, new RouteMapper(), climberId);
+
+        List<Route> routes = jdbcTemplate.query(sql, new RouteMapper(), climberId);
+
+        for (Route route : routes) {
+            addGym(route);
+            addRouteGrade(route);
+        };
+
+        return routes;
     }
 
     @Override
@@ -76,7 +100,15 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
                 "inner join climber c on c.climber_id = cg.climber_id " +
                 "where c.climber_id = ? " +
                 "and r.gym_id = ?;";
-        return jdbcTemplate.query(sql, new RouteMapper(), climberId, gymId);
+
+        List<Route> routes = jdbcTemplate.query(sql, new RouteMapper(), gymId, climberId);
+
+        for (Route route : routes) {
+            addGym(route);
+            addRouteGrade(route);
+        };
+
+        return routes;
     }
 
     @Override
