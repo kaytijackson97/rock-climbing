@@ -2,10 +2,12 @@ package learn.rockClimbing.data;
 
 import learn.rockClimbing.data.mappers.ClimberMapper;
 import learn.rockClimbing.data.mappers.GymMapper;
+import learn.rockClimbing.data.mappers.RouteGradeMapper;
 import learn.rockClimbing.data.mappers.RouteMapper;
 import learn.rockClimbing.models.Climber;
 import learn.rockClimbing.models.Gym;
 import learn.rockClimbing.models.Route;
+import learn.rockClimbing.models.RouteGrade;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -123,11 +125,39 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     }
 
     private void addRoutes(Climber climber) {
-        final String sql = "select r.route_id, r.gym_id, r.route_grade_id, r.route_type, r.attempts, r.set_date " +
+        final String climberSql = "select r.route_id, r.gym_id, r.route_grade_id, r.route_type, r.attempts, r.set_date " +
                 "from route r " +
                 "inner join climber_route cr on r.route_id = cr.route_id " +
                 "where cr.climber_id = ?;";
-        List<Route> routes = jdbcTemplate.query(sql, new RouteMapper(), climber.getClimberId());
+        List<Route> routes = jdbcTemplate.query(climberSql, new RouteMapper(), climber.getClimberId());
+
+        for (Route route : routes) {
+            //set gym in route
+            final String routeSql = "select g.gym_id, g.gym_name, g.city, g.state " +
+                    "from gym g " +
+                    "inner join route r on g.gym_id = r.gym_id " +
+                    "where r.route_id = ?;";
+
+            Gym gym = jdbcTemplate.query(
+                    routeSql,
+                    new GymMapper(),
+                    route.getRouteId()
+            ).stream().findFirst().orElse(null);
+
+            route.setGym(gym);
+
+            //set grade in route
+            final String routeGradeSql = "select rg.route_grade_id, rg.grading_system, rg.grade_level " +
+                    "from route_grade rg " +
+                    "inner join route r on rg.route_grade_id = r.route_grade_id " +
+                    "where r.route_id = ?;";
+            RouteGrade routeGrade = jdbcTemplate.query(
+                    routeGradeSql,
+                    new RouteGradeMapper(),
+                    route.getRouteId()
+            ).stream().findFirst().orElse(null);
+            route.setRouteGrade(routeGrade);
+        }
         climber.setClimbs(routes);
     }
 }

@@ -37,17 +37,17 @@ create table climber (
     length_of_time_climbing int not null
 );
 
-create table climber_gym (
+create table climber_route (
 	climber_id int,
-    gym_id int,
-    constraint pk_climber_gym
-		primary key (climber_id, gym_id),
-	constraint fk_climber_gym_climber_id
+    route_id int,
+    constraint pk_climber_route
+		primary key (climber_id, route_id),
+	constraint fk_climber_route_climber_id
 		foreign key (climber_id)
         references climber(climber_id),
-	constraint fk_climber_gym_gym_id
-		foreign key (gym_id)
-        references gym(gym_id)
+	constraint fk_climber_route_route_id
+		foreign key (route_id)
+        references route(route_id)
 );
 
 -- password is set to "P@ssw0rd!"
@@ -87,3 +87,27 @@ insert into route_grade (grading_system, grade_level)
     ('YOSEMITE', '5.12b'),
     ('YOSEMITE', '5.12c'),
     ('YOSEMITE', '5.12d');
+
+insert into gym (gym_name, city, state)
+		values
+		('Test 1 name', 'test 1 city', 'AA'),
+		('Test 2 name', 'test 2 city', 'BB'),
+		('Test 3 name', 'test 3 city', 'CC');
+		
+	insert into route (gym_id, route_grade_id, route_type, attempts)
+		values
+		(1, 1, 'BOULDERING', 1),
+		(2, 2, 'BOULDERING', 2),
+		(3, 23, 'TOP_ROPE', 3);
+		
+	insert into climber (climber_name, climber_age, length_of_time_climbing)
+		values
+		('Joe', 24, 4),
+		('John', 30, 1),
+		('Jane', 32, 10);
+		
+	insert into climber_route (climber_id, route_id)
+		values
+		(1, 1),
+		(2, 2),
+		(3, 3);
