@@ -28,10 +28,11 @@ public class GymJdbcTemplateRepository implements GymRepository {
 
     @Override
     public List<Gym> findGymsByClimberId(int climberId) {
-        final String sql = "select g.gym_id, g.gym_name, g.city, g.state from gym g " +
-                "inner join climber_gym cg on cg.gym_id = g.gym_id " +
-                "inner join climber c on c.climber_id = cg.climber_id " +
-                "where c.climber_id = ?;";
+        final String sql = "select distinct g.gym_id, g.gym_name, g.city, g.state " +
+                "from gym g " +
+                "inner join route r on g.gym_id = r.gym_id " +
+                "inner join climber_route cr on r.route_id = cr.route_id " +
+                "where cr.climber_id = ?;";
         return jdbcTemplate.query(sql, new GymMapper(), climberId);
     }
 
@@ -105,9 +106,6 @@ public class GymJdbcTemplateRepository implements GymRepository {
 
         final String deleteRouteSql = "delete from route where gym_id = ?;";
         jdbcTemplate.update(deleteRouteSql, gymId);
-
-        final String deleteClimberGymSql = "delete from climber_gym where gym_id = ?;";
-        jdbcTemplate.update(deleteClimberGymSql, gymId);
 
         jdbcTemplate.update("set sql_safe_updates = 1;");
 

@@ -77,8 +77,8 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
         final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
                 "from route r " +
                 "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
-                "inner join climber_gym cg on cg.gym_id = r.gym_id " +
-                "inner join climber c on c.climber_id = cg.climber_id " +
+                "inner join climber_route cr on cr.route_id = r.route_id " +
+                "inner join climber c on c.climber_id = cr.climber_id " +
                 "where c.climber_id = ?;";
 
         List<Route> routes = jdbcTemplate.query(sql, new RouteMapper(), climberId);
@@ -96,8 +96,8 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
         final String sql = "select r.route_id, r.gym_id, rg.grade_level, r.route_type, r.attempts, r.set_date " +
                 "from route r " +
                 "inner join route_grade rg on r.route_grade_id = rg.route_grade_id " +
-                "inner join climber_gym cg on cg.gym_id = r.gym_id " +
-                "inner join climber c on c.climber_id = cg.climber_id " +
+                "inner join climber_route cr on cr.route_id = r.route_id " +
+                "inner join climber c on c.climber_id = cr.climber_id " +
                 "where c.climber_id = ? " +
                 "and r.gym_id = ?;";
 

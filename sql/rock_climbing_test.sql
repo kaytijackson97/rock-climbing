@@ -37,24 +37,24 @@ create table climber (
     length_of_time_climbing int not null
 );
 
-create table climber_gym (
+create table climber_route (
 	climber_id int,
-    gym_id int,
-    constraint pk_climber_gym
-		primary key (climber_id, gym_id),
-	constraint fk_climber_gym_climber_id
+    route_id int,
+    constraint pk_climber_route
+		primary key (climber_id, route_id),
+	constraint fk_climber_route_climber_id
 		foreign key (climber_id)
         references climber(climber_id),
-	constraint fk_climber_gym_gym_id
-		foreign key (gym_id)
-        references gym(gym_id)
+	constraint fk_climber_route_route_id
+		foreign key (route_id)
+        references route(route_id)
 );
 
 delimiter //
 create procedure set_known_good_state()
 begin
 	set sql_safe_updates = 0;
-    delete from climber_gym;
+    delete from climber_route;
     delete from route;
     alter table route auto_increment = 1;
     delete from climber;
@@ -120,7 +120,7 @@ begin
 		('John', 30, 1),
 		('Jane', 32, 10);
 		
-	insert into climber_gym (climber_id, gym_id)
+	insert into climber_route (climber_id, route_id)
 		values
 		(1, 1),
 		(2, 2),

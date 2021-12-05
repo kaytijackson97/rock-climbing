@@ -2,8 +2,10 @@ package learn.rockClimbing.data;
 
 import learn.rockClimbing.data.mappers.ClimberMapper;
 import learn.rockClimbing.data.mappers.GymMapper;
+import learn.rockClimbing.data.mappers.RouteMapper;
 import learn.rockClimbing.models.Climber;
 import learn.rockClimbing.models.Gym;
+import learn.rockClimbing.models.Route;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -25,7 +27,14 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     @Override
     public List<Climber> findAllClimbers() {
         final String sql = "select climber_id, climber_name, climber_age, length_of_time_climbing from climber;";
-        return jdbcTemplate.query(sql, new ClimberMapper());
+        List<Climber> climbers = jdbcTemplate.query(sql, new ClimberMapper());
+
+        for (Climber climber : climbers) {
+            addGyms(climber);
+            addRoutes(climber);
+        }
+
+        return climbers;
     }
 
     @Override
@@ -36,6 +45,7 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
 
         if(climber != null) {
             addGyms(climber);
+            addRoutes(climber);
         }
 
         return climber;
@@ -93,7 +103,7 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     public boolean deleteClimberById(int climberId) {
         jdbcTemplate.update("set sql_safe_updates = 0;");
 
-        final String deleteClimberGymSql = "delete from climber_gym where climber_id = ?;";
+        final String deleteClimberGymSql = "delete from climber_route where climber_id = ?;";
         jdbcTemplate.update(deleteClimberGymSql, climberId);
 
         jdbcTemplate.update("set sql_safe_updates = 1;");
@@ -103,11 +113,21 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     }
 
     private void addGyms(Climber climber) {
-        final String sql = "select g.gym_id, g.gym_name, g.city, g.state " +
+        final String sql = "select distinct g.gym_id, g.gym_name, g.city, g.state " +
                 "from gym g " +
-                "inner join climber_gym cg on g.gym_id = cg.gym_id " +
-                "where cg.climber_id = ?;";
+                "inner join route r on g.gym_id = r.gym_id " +
+                "inner join climber_route cr on r.route_id = cr.route_id " +
+                "where cr.climber_id = ?;";
         List<Gym> gyms = jdbcTemplate.query(sql, new GymMapper(), climber.getClimberId());
         climber.setGyms(gyms);
+    }
+
+    private void addRoutes(Climber climber) {
+        final String sql = "select r.route_id, r.gym_id, r.route_grade_id, r.route_type, r.attempts, r.set_date " +
+                "from route r " +
+                "inner join climber_route cr on r.route_id = cr.route_id " +
+                "where cr.climber_id = ?;";
+        List<Route> routes = jdbcTemplate.query(sql, new RouteMapper(), climber.getClimberId());
+        climber.setClimbs(routes);
     }
 }
