@@ -102,8 +102,8 @@ public class RouteService {
             return result;
         }
 
-        if (route.getSetDate().isBefore(LocalDate.of(1987, 1, 1)) ||
-            route.getSetDate().isAfter(LocalDate.now())
+        if (route.getSetDate() != null && route.getSetDate().isBefore(LocalDate.of(1987, 1, 1)) ||
+            route.getSetDate() != null && route.getSetDate().isAfter(LocalDate.now())
         ) {
             result.addMessage("Set date must be between January 1, 1987 and today.", ResultType.INVALID);
             return result;

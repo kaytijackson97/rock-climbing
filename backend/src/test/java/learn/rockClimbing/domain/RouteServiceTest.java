@@ -199,7 +199,7 @@ class RouteServiceTest {
         route.setRouteId(routeId);
         route.setGym(gym);
         route.setRouteGrade(routeGrade);
-        route.setRouteType(RouteType.BOULDERING);
+        route.setRouteType(RouteType.BOULDERING.getRoute());
         route.setAttempts(1);
         route.setSetDate(LocalDate.now().minusDays(5));
 

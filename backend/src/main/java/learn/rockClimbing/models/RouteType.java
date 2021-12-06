@@ -11,7 +11,7 @@ public enum RouteType {
         this.route = route;
     }
 
-    public String getRoutes() {
+    public String getRoute() {
         return route;
     }
 }

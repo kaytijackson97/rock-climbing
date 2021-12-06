@@ -95,7 +95,7 @@ public class RouteJdbcTemplateRepositoryTest {
     void shouldNotEditIfInvalidRouteId() {
         Route route = routeRepository.findRouteById(2);
         route.setRouteId(5);
-        route.setRouteType(RouteType.TOP_ROPE);
+        route.setRouteType(RouteType.TOP_ROPE.getRoute());
         assertFalse(routeRepository.editRoute(route));
     }
 
@@ -123,7 +123,7 @@ public class RouteJdbcTemplateRepositoryTest {
         route.setRouteId(routeId);
         route.setGym(gym);
         route.setRouteGrade(routeGrade);
-        route.setRouteType(RouteType.BOULDERING);
+        route.setRouteType(RouteType.BOULDERING.getRoute());
         route.setAttempts(8);
         route.setSetDate(LocalDate.of(2021, 5, 13));
 

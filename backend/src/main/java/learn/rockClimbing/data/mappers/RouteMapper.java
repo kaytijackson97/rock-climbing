@@ -1,7 +1,6 @@
 package learn.rockClimbing.data.mappers;
 
 import learn.rockClimbing.models.Route;
-import learn.rockClimbing.models.RouteType;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -14,7 +13,7 @@ public class RouteMapper implements RowMapper<Route> {
 
         route.setRouteId(resultSet.getInt("route_id"));
         String routeType = resultSet.getString("route_type");
-        route.setRouteType(RouteType.valueOf(routeType));
+        route.setRouteType(routeType);
         route.setAttempts(resultSet.getInt("attempts"));
         if (resultSet.getDate("set_date") != null) {
             route.setSetDate(resultSet.getDate("set_date").toLocalDate());

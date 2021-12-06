@@ -64,7 +64,7 @@ public class RouteController {
         return new ResponseEntity<>(route, HttpStatus.OK);
     }
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<Object> addRoute(@RequestBody @Valid Route route, BindingResult results) {
         if (results.hasErrors()) {
             return new ResponseEntity<>(results.getAllErrors(), HttpStatus.BAD_REQUEST);
@@ -78,7 +78,7 @@ public class RouteController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
-    @PostMapping("/{routeId}")
+    @PutMapping("/{routeId}")
     public ResponseEntity<Object> editRoute(@PathVariable int routeId, @RequestBody @Valid Route route,
                                           BindingResult results) {
         if (route.getRouteId() != routeId) {

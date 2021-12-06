@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Route {
     private int routeId;
     private Gym gym;
-    private RouteType routeType;
+    private String routeType;
     private RouteGrade routeGrade;
     private int attempts;
     private LocalDate setDate;
@@ -26,11 +26,11 @@ public class Route {
         this.gym = gym;
     }
 
-    public RouteType getRouteType() {
+    public String getRouteType() {
         return routeType;
     }
 
-    public void setRouteType(RouteType routeType) {
+    public void setRouteType(String routeType) {
         this.routeType = routeType;
     }
 

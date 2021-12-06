@@ -1,5 +1,5 @@
 // TODO: setup setDate
-// TODO: figure out why add climb is trying to add null route
+// TODO: figure out why enum isn't working with fetch call
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,13 +7,14 @@ import { Link, useHistory } from 'react-router-dom';
 import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 
-import { CLIENT_ENDPOINTS } from '../../constants/Routes';
+import { API_ENDPOINTS, CLIENT_ENDPOINTS } from '../../constants/Routes';
 
 // Actions
-import { addClimb } from '../../actions/climbs.action';
+// import { addClimb } from '../../actions/climbs.action';
 
 function AddClimb() {
     const { MY_CLIMBS } = CLIENT_ENDPOINTS;
+    const { FETCH_CLIMB } = API_ENDPOINTS
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -24,6 +25,7 @@ function AddClimb() {
     const [routeType, setRouteType] = useState("");
     const [routeGrade, setRouteGrade] = useState({});
     const [attempts, setAttempts] = useState(0);
+    const [setDate, setSetDate] = useState(null);
 
     function changeGym() {
         const chosenGym = document.getElementById("gymChoice").value;
@@ -49,18 +51,42 @@ function AddClimb() {
         setRouteGrade(_find(routeGrade, {'gradeLevel': chosenRouteGrade}));
     }
 
-    const handleSubmit = (event) => {
+    async function handleSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
 
-        const climb = {
-            gym,
-            routeType,
-            routeGrade,
-            attempts,
-        }
 
-        dispatch(addClimb(climb));
+        //TODO: move this post call into a saga
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                gym,
+                routeType,
+                routeGrade,
+                attempts,
+                setDate: null,
+            }),
+        };
+    
+        await fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMB}`, init)
+        .then(response => {
+            if (response.status !== 201) {
+                return Promise.reject("Add climb failed.");
+            }
+            return response.json();
+        })
+        .catch(console.log);
+
+        // dispatch(addClimb({
+        //     gym,
+        //     routeType,
+        //     routeGrade,
+        //     attempts,
+        //     setDate,
+        // }));
         history.push(MY_CLIMBS);
     }
 

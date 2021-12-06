@@ -6,6 +6,7 @@ import learn.rockClimbing.data.mappers.RouteMapper;
 import learn.rockClimbing.models.Gym;
 import learn.rockClimbing.models.Route;
 import learn.rockClimbing.models.RouteGrade;
+import learn.rockClimbing.models.RouteType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -125,7 +126,7 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, route.getGym().getGymId());
             ps.setInt(2, route.getRouteGrade().getRouteGradeId());
-            ps.setString(3, route.getRouteType().toString());
+            ps.setString(3, route.getRouteType());
             ps.setInt(4, route.getAttempts());
             if (route.getSetDate() != null) {
                 ps.setDate(5, Date.valueOf(route.getSetDate()));
@@ -158,7 +159,7 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
         return jdbcTemplate.update(sql,
                 route.getGym().getGymId(),
                 route.getRouteGrade().getRouteGradeId(),
-                route.getRouteType().toString(),
+                route.getRouteType(),
                 route.getAttempts(),
                 route.getSetDate(),
                 route.getRouteId()) > 0;

@@ -3,7 +3,7 @@ import types from '../actions/climbs.action';
 import { API_ENDPOINTS } from '../constants/Routes';
 
 export function* addClimbSaga() {
-    yield takeLatest(types.ADD_CLIMB, addClimb)
+    yield takeLatest(types.ADD_CLIMB, addClimb);
 }
 
 function* addClimb(climb) {
@@ -11,7 +11,7 @@ function* addClimb(climb) {
     let newClimb;
 
     const init = {
-        method: "PUT",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },

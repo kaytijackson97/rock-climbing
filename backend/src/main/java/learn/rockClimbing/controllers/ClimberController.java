@@ -35,7 +35,7 @@ public class ClimberController {
         return ResponseEntity.ok(climber);
     }
 
-    @PostMapping
+    @PutMapping
     public ResponseEntity<Object> addClimber(@RequestBody @Valid Climber climber, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
@@ -49,7 +49,7 @@ public class ClimberController {
         return ErrorResponse.build(result);
     }
 
-    @PutMapping("/{climberId}")
+    @PostMapping("/{climberId}")
     public ResponseEntity<Object> editClimber(@PathVariable int climberId, @RequestBody @Valid Climber climber,
                                               BindingResult bindingResult) {
         if (climberId != climber.getClimberId()) {

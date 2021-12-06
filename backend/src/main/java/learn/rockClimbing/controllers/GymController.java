@@ -45,7 +45,7 @@ public class GymController {
         return new ResponseEntity<>(gym, HttpStatus.OK);
     }
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<Object> addGym(@RequestBody @Valid Gym gym, BindingResult results) {
         if (results.hasErrors()) {
             return new ResponseEntity<>(results.getAllErrors(), HttpStatus.BAD_REQUEST);
@@ -59,7 +59,7 @@ public class GymController {
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
-    @PostMapping("/{gymId}")
+    @PutMapping("/{gymId}")
     public ResponseEntity<Object> editGym(@PathVariable int gymId, @RequestBody @Valid Gym gym,
                                           BindingResult results) {
         if (gym.getGymId() != gymId) {
