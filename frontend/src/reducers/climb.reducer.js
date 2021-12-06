@@ -7,7 +7,7 @@ const reducer = (state = initialClimbs, action) => {
         case types.POPULATE_CLIMBS:
             return action.payload || [];
 
-        case types.ADD_CLIMB:
+        case types.ADD_CLIMB_RESULT:
             newClimbs = state.concat({...action.payload});
             return newClimbs;
 

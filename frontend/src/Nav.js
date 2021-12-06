@@ -10,10 +10,7 @@ function Nav() {
                         <Link className="nav-link" to="/my-climbs">My Climbs</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/my-gyms">My Gyms</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/climber/:climberId">My Profile</Link>
+                        <Link className="nav-link" to="/climber">My Profile</Link>
                     </li>
                 </ul>
             </nav>

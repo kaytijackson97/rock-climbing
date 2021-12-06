@@ -9,3 +9,10 @@ export const API_ENDPOINTS = {
     FETCH_ROUTE_GRADE: 'api/route-grade',
     FETCH_ROUTE_GRADE_BY_GRADING_SYSTEM: 'api/route-grade/grading-system',
 };
+
+export const CLIENT_ENDPOINTS = {
+    MY_CLIMBS: '/my-climbs',
+    ADD_CLIMB: '/climb/add',
+    CLIMBERS: '/climbers',
+    CLIMBER_PROFILE: '/climber',
+}

@@ -1,12 +1,15 @@
 import Welcome from './components/Welcome';
 import MyClimbs from './components/myClimbs/MyClimbs';
+import AddClimb from './components/myClimbs/AddClimb';
 import ClimberApp from './components/climber/ClimberApp';
 import ClimberProfile from './components/profile/ClimberProfile';
 import Nav from './Nav';
 
+import { CLIENT_ENDPOINTS } from './constants/Routes';
+
 // Actions
 import { getAllClimbs } from './actions/climbs.action';
-import { getAllClimbers, setCurrentClimber } from './actions/climbers.action';
+import { getAllClimbers } from './actions/climbers.action';
 import { getAllGyms } from './actions/gyms.action';
 import { getAllRouteGrades } from './actions/routeGrades.action';
 
@@ -16,12 +19,16 @@ import {
   Route,
 } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 function App() {
-  const climbs = useSelector((state) => state.climbs);
-  const climbers = useSelector((state) => state.climbers);
   const dispatch = useDispatch();
+  const { 
+    MY_CLIMBS,
+    ADD_CLIMB,
+    CLIMBERS,
+    CLIMBER_PROFILE,
+  } = CLIENT_ENDPOINTS
 
   useEffect(() => {
     dispatch(getAllClimbers());
@@ -35,18 +42,11 @@ function App() {
       <Router>
         <Nav/>
         <Switch>
-          <Route path='/' exact>
-            <Welcome />
-          </Route>
-          <Route path='/my-climbs' exact>
-            <MyClimbs />
-          </Route>
-          <Route path='/climbers' exact>
-            <ClimberApp />
-          </Route>
-          <Route path='/climber/:climberId' exact>
-            <ClimberProfile />
-          </Route>
+          <Route exact path='/' component={Welcome} />
+          <Route exact path={`${MY_CLIMBS}`} component={MyClimbs} />
+          <Route exact path={`${ADD_CLIMB}`} component={AddClimb} />
+          <Route exact path={`${CLIMBERS}`}  component={ClimberApp} />
+          <Route exact path={`${CLIMBER_PROFILE}`} component={ClimberProfile} />
         </Switch>
       </Router>
     </div>
