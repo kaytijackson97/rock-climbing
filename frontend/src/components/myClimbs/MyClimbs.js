@@ -5,7 +5,7 @@ import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 
 function MyClimbs() {
     const { ADD_CLIMB } = CLIENT_ENDPOINTS;
-    const climbs = useSelector((state) => state.climbers[0].climbs);
+    const climbs = useSelector((state) => state.climbers[0]?.climbs);
 
     return (
         <div>
@@ -21,7 +21,7 @@ function MyClimbs() {
                     </tr>
                 </thead>
                 <tbody>
-                    {climbs.map(c => (<Climb key={c.routeId} climb={c} />))}
+                    {climbs ? climbs.map(c => (<Climb key={c.routeId} climb={c} />)) : {}}
                 </tbody>
             </table>
             <button type="button" className="btn btn-primary">

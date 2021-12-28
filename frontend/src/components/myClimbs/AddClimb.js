@@ -1,4 +1,3 @@
-// TODO: setup setDate
 // TODO: figure out why enum isn't working with fetch call
 
 import { useState } from 'react';
@@ -8,13 +7,19 @@ import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 
 import { API_ENDPOINTS, CLIENT_ENDPOINTS } from '../../constants/Routes';
+import { ROCK_CLIMBING_CONSTANTS } from '../../constants/RockClimbingConstants';
+
+import CustomDropDown from '../customComponents/CustomDropDown';
+import CustomDatePicker from '../customComponents/CustomDatePicker';
 
 // Actions
 // import { addClimb } from '../../actions/climbs.action';
 
 function AddClimb() {
     const { MY_CLIMBS } = CLIENT_ENDPOINTS;
-    const { FETCH_CLIMB } = API_ENDPOINTS
+    const { FETCH_CLIMB } = API_ENDPOINTS;
+    const { routeTypes } = ROCK_CLIMBING_CONSTANTS;
+
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -24,8 +29,9 @@ function AddClimb() {
     const [gym, setGym] = useState({});
     const [routeType, setRouteType] = useState("");
     const [routeGrade, setRouteGrade] = useState({});
+    const [filteredRouteGrades, setFilteredRouteGrades] = useState(routeGrades);
     const [attempts, setAttempts] = useState(0);
-    const [setDate, setSetDate] = useState(null);
+    const [setDate, setSetDate] = useState(new Date());
 
     function changeGym() {
         const chosenGym = document.getElementById("gymChoice").value;
@@ -33,14 +39,17 @@ function AddClimb() {
     }
 
     function changeRouteType() {
+        setFilteredRouteGrades(routeGrades);
         const chosenRouteType = document.getElementById("routeTypeChoice").value;
 
         if (chosenRouteType === "BOULDERING") {
             const boulderingRouteGrades = _filter(routeGrades, { 'gradingSystem': 'BOULDERING' })
-            setRouteGrade(boulderingRouteGrades);
-        } else if (chosenRouteType === "TOP_ROPE" || "LEAD") {
+            setFilteredRouteGrades(boulderingRouteGrades);
+        } else if (chosenRouteType === "TOP_ROPE" || chosenRouteType === "LEAD") {
             const yosemiteRouteGrades = _filter(routeGrades, { 'gradingSystem': 'YOSEMITE' })
-            setRouteGrade(yosemiteRouteGrades);
+            setFilteredRouteGrades(yosemiteRouteGrades);
+        } else {
+            setFilteredRouteGrades(routeGrades);
         }
 
         setRouteType(chosenRouteType);
@@ -66,8 +75,8 @@ function AddClimb() {
                 gym,
                 routeType,
                 routeGrade,
-                attempts,
-                setDate: null,
+                attempts: 0,
+                setDate: "2021-12-23",
             }),
         };
     
@@ -95,29 +104,32 @@ function AddClimb() {
             <h2 className="card-title">Add Climb</h2>
             <div className="card-body">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="form-label mt-4">Gym</label>
-                        <select id="gymChoice" onChange={changeGym}>
-                            <option selected="selected">Chose a Gym</option>
-                            {gyms.map(g => <option key={g.gymId} >{g.name}</option>)}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label mt-4">Route Type</label>
-                        <select id="routeTypeChoice" onChange={changeRouteType}>
-                            <option selected="selected">Chose a Route Type</option>
-                            <option>BOULDERING</option>
-                            <option>TOP_ROPE</option>
-                            <option>LEAD</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label className="form-label mt-4">Grade</label>
-                        <select id="routeGradeChoice" onChange={changeRouteGrade}>
-                            <option selected="selected">Chose a Grade</option>
-                            {routeGrades.map(rg => <option key={rg.routeGradeId}>{rg.gradeLevel}</option>)}
-                        </select>
-                    </div>
+                    <CustomDropDown 
+                        dropDownLabel={"Gym"}
+                        selectId={"gymChoice"}
+                        onChange={changeGym}
+                        defaultOption={"Chose a Gym"}
+                        options={gyms.map(g => <option key={g.gymId}>{g.name}</option>)}
+                    />
+                    <CustomDropDown 
+                        dropDownLabel={"Route Type"}
+                        selectId={"routeTypeChoice"}
+                        onChange={changeRouteType}
+                        defaultOption={"Chose a Route Type"}
+                        options={routeTypes.map(rt => <option>{rt}</option>)}
+                    />
+                    <CustomDropDown
+                        dropDownLabel={"Grade"}
+                        selectId={"routeGradeChoice"}
+                        onChange={changeRouteGrade}
+                        defaultOption={"Chose a Grade"}
+                        options={filteredRouteGrades.map(rg => <option key={rg.routeGradeId}>{rg.gradeLevel}</option>)}
+                    />
+                    <CustomDatePicker 
+                        datePickerLabel={"Set Date"}
+                        selectedDate={setDate}
+                        onChange={date => setSetDate(date)}
+                    />
                     <button type="submit" className="btn btn-primary mt-3 mr-3">Submit</button>
                     <Link to={"/api/agency"}>
                         <button type="button" className="btn btn-primary mt-3 ml-3">Cancel</button>
