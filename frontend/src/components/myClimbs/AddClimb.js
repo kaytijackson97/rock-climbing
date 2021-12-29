@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 
-import { API_ENDPOINTS, CLIENT_ENDPOINTS } from '../../constants/Routes';
+import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 import { ROCK_CLIMBING_CONSTANTS } from '../../constants/RockClimbingConstants';
 
 import CustomDropDown from '../customComponents/CustomDropDown';
@@ -61,7 +61,7 @@ function AddClimb() {
         setRouteGrade(_find(routeGrades, {'gradeLevel': chosenRouteGrade}));
     }
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -95,6 +95,7 @@ function AddClimb() {
                         selectId={"routeTypeChoice"}
                         onChange={changeRouteType}
                         defaultOption={"Chose a Route Type"}
+                        //TODO: add key for this guy
                         options={routeTypes.map(rt => <option>{rt}</option>)}
                     />
                     <CustomDropDown
@@ -110,7 +111,7 @@ function AddClimb() {
                         onChange={date => setSetDate(date)}
                     />
                     <button type="submit" className="btn btn-primary mt-3 mr-3">Submit</button>
-                    <Link to={"/api/agency"}>
+                    <Link to={MY_CLIMBS}>
                         <button type="button" className="btn btn-primary mt-3 ml-3">Cancel</button>
                     </Link>
                 </form>

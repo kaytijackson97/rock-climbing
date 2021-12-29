@@ -1,9 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import types from '../actions/climbs.action';
-import { API_ENDPOINTS } from '../constants/Routes';
+import types from '../../actions/climbs.action';
+import { API_ENDPOINTS } from '../../constants/Routes';
 
 function* addClimb({ climb, climber }) {
-    const { FETCH_CLIMB, FETCH_CLIMBER_ROUTE } = API_ENDPOINTS;
+    const { FETCH_ROUTE, FETCH_CLIMBER_ROUTE } = API_ENDPOINTS;
     let newClimb;
 
     const routeInit = {
@@ -14,7 +14,7 @@ function* addClimb({ climb, climber }) {
         body: JSON.stringify(climb),
     };
 
-    yield fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMB}`, routeInit)
+    yield fetch(`${process.env.REACT_APP_API_URL}/${FETCH_ROUTE}`, routeInit)
     .then(response => {
         if (response.status !== 201) {
             return Promise.reject("Add climb failed.");

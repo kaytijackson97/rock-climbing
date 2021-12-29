@@ -15,7 +15,7 @@ const reducer = (state = initialClimbs, action) => {
             newClimbs = state.filter(climb => climb.routeId !== action.id);
             return newClimbs;
 
-        case types.UPDATE_CLIMB:
+        case types.UPDATE_CLIMB_RESULT:
             newClimbs = [...state];
             const index = state.findIndex((climb) => climb.routeId === action.id);
             newClimbs[index] = { ...newClimbs[index], ...action.climb };

@@ -3,6 +3,7 @@ const types = {
     ADD_CLIMB: 'ADD_CLIMB',
     ADD_CLIMB_RESULT: 'ADD_CLIMB_RESULT',
     UPDATE_CLIMB: 'UPDATE_CLIMB',
+    UPDATE_CLIMB_RESULT: 'UPDATE_CLIMB_RESULT',
     DELETE_CLIMB: 'DELETE_CLIMB',
     POPULATE_CLIMBS: 'POPULATE_CLIMBS',
 }
@@ -23,11 +24,12 @@ export const addClimb = ({ climb, climber }) => {
     };
 }
 
-export const updateClimb = ({ id, climb }) => {
+export const updateClimb = ({ id, climb, climber }) => {
     return {
         type: types.UPDATE_CLIMB,
         id,
         climb,
+        climber,
     };
 }
 

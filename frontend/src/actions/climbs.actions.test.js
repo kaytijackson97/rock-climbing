@@ -27,13 +27,18 @@ describe('climb actions', () => {
             routeId: 1,
             routeType: 'BOULDERING',
         };
+        const climber = {
+            climberId: 1,
+            name: 'test name',
+        }
 
         const expected = {
             type: types.UPDATE_CLIMB,
             id,
             climb,
+            climber,
         };
-        expect(updateClimb({ id, climb })).toEqual(expected);
+        expect(updateClimb({ id, climb, climber })).toEqual(expected);
     });
 
     test('deleteClimb', () => {
