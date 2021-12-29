@@ -1,7 +1,6 @@
 import { put, take } from 'redux-saga/effects';
 import { API_ENDPOINTS } from '../constants/Routes';
-import { populateGyms } from '../actions/gyms.action';
-import { populateRouteGrades } from '../actions/routeGrades.action';
+import { populateGyms } from '../store/actions/gyms.action';
 
 export function* getAllGyms() {
     const { FETCH_GYM } = API_ENDPOINTS;

@@ -1,6 +1,6 @@
 import { put, take } from 'redux-saga/effects';
 import { API_ENDPOINTS } from '../constants/Routes';
-import { populateRouteGrades } from '../actions/routeGrades.action';
+import { populateRouteGrades } from '../store/actions/routeGrades.action';
 
 export function* getAllRouteGrades() {
     const { FETCH_ROUTE_GRADE } = API_ENDPOINTS;

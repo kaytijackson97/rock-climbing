@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateClimb } from "../../actions/climbs.action";
+import { updateClimb } from "../../store/actions/climbs.action";
 
 function Climb({ climb }) {
     const climbers = useSelector(state => state.climbers);
@@ -18,9 +18,11 @@ function Climb({ climb }) {
     };
 
     function handleDecrease() {
-        attempts = attempts - 1;
-        setAttempts(attempts);
-        updateClimbCount();
+        if (attempts > 1) {
+            attempts = attempts - 1;
+            setAttempts(attempts);
+            updateClimbCount();
+        }
     };
 
     function updateClimbCount() {
@@ -45,9 +47,9 @@ function Climb({ climb }) {
             <td>{listedClimb.routeGrade.gradeLevel}</td>
             <td>{listedClimb.gym.name}</td>
             <td>
-                <button onClick={handleIncrease}>+</button>
-                {listedClimb.attempts}
-                <button onClick={handleDecrease}>-</button>
+                <button className= "btn btn-primary" onClick={handleIncrease}>+</button>
+                <span className="climb-table-spacing">{listedClimb.attempts}</span>
+                <button className= "btn btn-primary" onClick={handleDecrease}>-</button>
             </td>
         </tr>
     );

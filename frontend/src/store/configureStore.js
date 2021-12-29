@@ -4,10 +4,10 @@ import createSagaMiddleware from 'redux-saga';
 import { initSagas } from '../sagas/index';
 
 // Reducers
-import climbReducer from '../reducers/climb.reducer';
-import climberReducer from '../reducers/climber.reducer';
-import gymReducer from '../reducers/gyms.reducer';
-import routeGradeReducer from '../reducers/routeGrades.reducer';
+import climbReducer from '../store/reducers/climb.reducer';
+import climberReducer from '../store/reducers/climber.reducer';
+import gymReducer from '../store/reducers/gyms.reducer';
+import routeGradeReducer from '../store/reducers/routeGrades.reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware];

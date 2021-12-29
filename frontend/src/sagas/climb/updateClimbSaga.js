@@ -1,5 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import types from '../../actions/climbs.action';
+import types from '../../store/actions/climbs.action';
 import { API_ENDPOINTS } from '../../constants/Routes';
 
 function* updateClimb({ id, climb, climber }) {

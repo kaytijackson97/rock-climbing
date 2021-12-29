@@ -8,10 +8,10 @@ import Nav from './Nav';
 import { CLIENT_ENDPOINTS } from './constants/Routes';
 
 // Actions
-import { getAllClimbs } from './actions/climbs.action';
-import { getAllClimbers } from './actions/climbers.action';
-import { getAllGyms } from './actions/gyms.action';
-import { getAllRouteGrades } from './actions/routeGrades.action';
+import { getAllClimbs } from './store/actions/climbs.action';
+import { getAllClimbers } from './store/actions/climbers.action';
+import { getAllGyms } from './store/actions/gyms.action';
+import { getAllRouteGrades } from './store/actions/routeGrades.action';
 
 import {
   BrowserRouter as Router,

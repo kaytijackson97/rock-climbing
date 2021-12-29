@@ -13,7 +13,7 @@ import CustomDropDown from '../customComponents/CustomDropDown';
 import CustomDatePicker from '../customComponents/CustomDatePicker';
 
 // Actions
-import { addClimb } from '../../actions/climbs.action';
+import { addClimb } from '../../store/actions/climbs.action';
 
 function AddClimb() {
     const { MY_CLIMBS } = CLIENT_ENDPOINTS;
@@ -31,7 +31,7 @@ function AddClimb() {
     const [routeType, setRouteType] = useState("");
     const [routeGrade, setRouteGrade] = useState({});
     const [filteredRouteGrades, setFilteredRouteGrades] = useState(routeGrades);
-    const [attempts, setAttempts] = useState(0);
+    const [attempts, setAttempts] = useState(1);
     const [setDate, setSetDate] = useState(new Date());
 
     function changeGym() {
