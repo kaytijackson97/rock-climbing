@@ -130,12 +130,12 @@ describe('climb reducer tests', () => {
         ]
 
         const action = {
-            type: types.UPDATE_CLIMB,
+            type: types.UPDATE_CLIMB_RESULT,
             id: 2,
             climb: {
                 routeId: 2,
                 routeType: 'TOP_ROPE',
-            }
+            },
         };
 
         const expected = [
