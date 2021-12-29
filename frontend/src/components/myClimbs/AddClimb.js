@@ -65,8 +65,6 @@ function AddClimb() {
         event.preventDefault();
         event.stopPropagation();
 
-        console.log('currentClimber', currentClimber);
-
         dispatch(addClimb({
             climb: {
                 gym,

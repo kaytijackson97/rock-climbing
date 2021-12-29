@@ -11,7 +11,7 @@ export default types;
 
 export const getAllClimbs = () => {
     return {
-        type: types.GET_CLIMBS
+        type: types.GET_CLIMBS,
     };
 }
 
@@ -23,23 +23,24 @@ export const addClimb = ({ climb, climber }) => {
     };
 }
 
-export const updateClimb = (id, climb) => {
+export const updateClimb = ({ id, climb }) => {
     return {
         type: types.UPDATE_CLIMB,
-        payload: { id, climb },
+        id,
+        climb,
     };
 }
 
-export const deleteClimb = (id) => {
+export const deleteClimb = ({ id }) => {
     return {
         type: types.DELETE_CLIMB,
-        payload: id,
+        id,
     };
 }
 
-export const populateClimbs = (climbs) => {
+export const populateClimbs = ({ climbs }) => {
     return { 
         type: types.POPULATE_CLIMBS, 
-        payload: climbs
+        climbs,
     };
 }

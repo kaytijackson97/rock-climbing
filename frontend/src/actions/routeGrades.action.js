@@ -10,13 +10,13 @@ export default types;
 
 export const getAllRouteGrades = () => {
     return {
-        type: types.GET_ROUTE_GRADE
+        type: types.GET_ROUTE_GRADE,
     };
 }
 
-export const populateRouteGrades = (routeGrades) => {
+export const populateRouteGrades = ({ routeGrades }) => {
     return { 
         type: types.POPULATE_ROUTE_GRADES, 
-        payload: routeGrades
+        routeGrades,
     };
 }

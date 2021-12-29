@@ -11,34 +11,35 @@ export default types;
 
 export const getAllClimbers = () => {
     return {
-        type: types.GET_CLIMBERS
+        type: types.GET_CLIMBERS,
     };
 }
 
-export const addClimber = (climber) => {
+export const addClimber = ({ climber }) => {
     return {
         type: types.ADD_CLIMBER,
-        payload: climber,
+        climber,
     };
 }
 
-export const updateClimber = (id, climber) => {
+export const updateClimber = ({ id, climber }) => {
     return {
         type: types.UPDATE_CLIMBER,
-        payload: { id, climber },
+        id,
+        climber,
     };
 }
 
-export const deleteClimber = (id) => {
+export const deleteClimber = ({ id }) => {
     return {
         type: types.DELETE_CLIMBER,
-        payload: id,
+        id,
     };
 }
 
-export const populateClimbers = (climbers) => {
+export const populateClimbers = ({ climbers }) => {
     return { 
         type: types.POPULATE_CLIMBERS, 
-        payload: climbers
+        climbers,
     };
 }
