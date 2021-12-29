@@ -38,7 +38,7 @@ function Climb({ climb }) {
         setListedClimb(newClimb);
     }
 
-    return(
+    return (
         <tr key={listedClimb.routeId}>
             <td>{listedClimb.routeId}</td>
             <td>{listedClimb.routeType}</td>
