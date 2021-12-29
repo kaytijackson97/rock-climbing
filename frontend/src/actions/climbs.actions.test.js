@@ -10,7 +10,7 @@ import types from './climbs.action';
 describe('climb actions', () => {
     test('addClimb', () => {
         const climb = { 
-            climbId: 1,
+            routeId: 1,
             routeType: 'BOULDERING',
         };
 
@@ -24,7 +24,7 @@ describe('climb actions', () => {
     test('updateClimb', () => {
         const id = 1;
         const climb = { 
-            climbId: 1,
+            routeId: 1,
             routeType: 'BOULDERING',
         };
 
@@ -49,15 +49,15 @@ describe('climb actions', () => {
     test('populateClimbs', () => {
         const climbs = [
             {
-                climbId: 1,
+                routeId: 1,
                 routeType: 'BOULDERING',
             },
             {
-                climbId: 2,
+                routeId: 2,
                 routeType: 'BOULDERING',
             },
             {
-                climbId: 3,
+                routeId: 3,
                 routeType: 'BOULDERING',
             },
         ];

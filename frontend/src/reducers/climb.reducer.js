@@ -12,13 +12,13 @@ const reducer = (state = initialClimbs, action) => {
             return newClimbs;
 
         case types.DELETE_CLIMB:
-            newClimbs = state.filter(climb => climb.routeId !== action.payload.id);
+            newClimbs = state.filter(climb => climb.routeId !== action.id);
             return newClimbs;
 
         case types.UPDATE_CLIMB:
             newClimbs = [...state];
-            const index = state.findIndex((climb) => climb.routeId === action.payload.id);
-            newClimbs[index] = { ...newClimbs[index], ...action.payload.climb };
+            const index = state.findIndex((climb) => climb.routeId === action.id);
+            newClimbs[index] = { ...newClimbs[index], ...action.climb };
             return newClimbs;
 
         default:

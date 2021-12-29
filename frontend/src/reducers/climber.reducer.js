@@ -8,7 +8,7 @@ const reducer = (state = initialClimbers, action) => {
         case types.POPULATE_CLIMBERS:
             return action.payload || [];
 
-        case types.ADD_CLIMBER:
+        case types.ADD_CLIMBER_RESULT:
             newClimbers = state.concat({ ...action.payload });
             return newClimbers;
 
@@ -20,13 +20,13 @@ const reducer = (state = initialClimbers, action) => {
             return newClimbers;
 
         case types.DELETE_CLIMBER:
-            newClimbers = state.filter(climber => climber.climberId !== action.payload.id);
+            newClimbers = state.filter(climber => climber.climberId !== action.id);
             return newClimbers;
 
         case types.UPDATE_CLIMBER:
             newClimbers = [...state];
-            index = state.findIndex((climber) => climber.climberId === action.payload.id);
-            newClimbers[index] = { ...newClimbers[index], ...action.payload.climber };
+            index = state.findIndex((climber) => climber.climberId === action.id);
+            newClimbers[index] = { ...newClimbers[index], ...action.climber };
             return newClimbers;
 
         default:
