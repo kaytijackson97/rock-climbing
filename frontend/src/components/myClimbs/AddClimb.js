@@ -13,19 +13,20 @@ import CustomDropDown from '../customComponents/CustomDropDown';
 import CustomDatePicker from '../customComponents/CustomDatePicker';
 
 // Actions
-// import { addClimb } from '../../actions/climbs.action';
+import { addClimb } from '../../actions/climbs.action';
 
 function AddClimb() {
     const { MY_CLIMBS } = CLIENT_ENDPOINTS;
-    const { FETCH_CLIMB } = API_ENDPOINTS;
-    const { routeTypes } = ROCK_CLIMBING_CONSTANTS;
+    const { routeTypes, gradeTypes } = ROCK_CLIMBING_CONSTANTS;
 
     const history = useHistory();
     const dispatch = useDispatch();
 
     const gyms = useSelector(state => state.gyms);
     const routeGrades = useSelector(state => state.routeGrades);
+    const climbers = useSelector(state => state.climbers);
 
+    const [currentClimber, setCurrentClimber] = useState(climbers[0]);
     const [gym, setGym] = useState({});
     const [routeType, setRouteType] = useState("");
     const [routeGrade, setRouteGrade] = useState({});
@@ -42,11 +43,11 @@ function AddClimb() {
         setFilteredRouteGrades(routeGrades);
         const chosenRouteType = document.getElementById("routeTypeChoice").value;
 
-        if (chosenRouteType === "BOULDERING") {
-            const boulderingRouteGrades = _filter(routeGrades, { 'gradingSystem': 'BOULDERING' })
+        if (chosenRouteType === routeTypes[0]) {
+            const boulderingRouteGrades = _filter(routeGrades, { 'gradingSystem': routeTypes[0] })
             setFilteredRouteGrades(boulderingRouteGrades);
-        } else if (chosenRouteType === "TOP_ROPE" || chosenRouteType === "LEAD") {
-            const yosemiteRouteGrades = _filter(routeGrades, { 'gradingSystem': 'YOSEMITE' })
+        } else if (chosenRouteType === routeTypes[1] || chosenRouteType === routeTypes[2]) {
+            const yosemiteRouteGrades = _filter(routeGrades, { 'gradingSystem': gradeTypes[1] })
             setFilteredRouteGrades(yosemiteRouteGrades);
         } else {
             setFilteredRouteGrades(routeGrades);
@@ -56,46 +57,26 @@ function AddClimb() {
     }
 
     function changeRouteGrade() {
-        const chosenRouteGrade = document.getElementById("routeGradeChoice").value;
-        setRouteGrade(_find(routeGrade, {'gradeLevel': chosenRouteGrade}));
+        const chosenRouteGrade = document.getElementById('routeGradeChoice').value;
+        setRouteGrade(_find(routeGrades, {'gradeLevel': chosenRouteGrade}));
     }
 
     async function handleSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
 
+        console.log('currentClimber', currentClimber);
 
-        //TODO: move this post call into a saga
-        const init = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        dispatch(addClimb({
+            climb: {
                 gym,
                 routeType,
                 routeGrade,
-                attempts: 0,
-                setDate: "2021-12-23",
-            }),
-        };
-    
-        await fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMB}`, init)
-        .then(response => {
-            if (response.status !== 201) {
-                return Promise.reject("Add climb failed.");
-            }
-            return response.json();
-        })
-        .catch(console.log);
-
-        // dispatch(addClimb({
-        //     gym,
-        //     routeType,
-        //     routeGrade,
-        //     attempts,
-        //     setDate,
-        // }));
+                attempts,
+                setDate,
+            },
+            climber: currentClimber,
+        }));
         history.push(MY_CLIMBS);
     }
 

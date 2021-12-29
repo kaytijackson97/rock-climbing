@@ -5,4 +5,9 @@ export const ROCK_CLIMBING_CONSTANTS = {
         'TOP_ROPE',
         'LEAD',
     ],
+
+    gradeTypes: [
+        'BOULDERING',
+        'YOSEMITE',
+    ]
 };

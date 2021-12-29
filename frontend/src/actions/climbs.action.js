@@ -15,10 +15,11 @@ export const getAllClimbs = () => {
     };
 }
 
-export const addClimb = (climb) => {
+export const addClimb = ({ climb, climber }) => {
     return {
         type: types.ADD_CLIMB,
-        payload: climb,
+        climb,
+        climber,
     };
 }
 

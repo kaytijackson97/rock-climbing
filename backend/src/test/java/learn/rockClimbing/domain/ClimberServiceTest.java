@@ -1,7 +1,10 @@
 package learn.rockClimbing.domain;
 
 import learn.rockClimbing.data.ClimberRepository;
+import learn.rockClimbing.data.ClimberRouteRepository;
 import learn.rockClimbing.models.Climber;
+import learn.rockClimbing.models.ClimberRoute;
+import learn.rockClimbing.models.Route;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +21,9 @@ class ClimberServiceTest {
 
     @MockBean
     ClimberRepository climberRepository;
+
+    @MockBean
+    ClimberRouteRepository climberRouteRepository;
 
     @Test
     void shouldAddValidClimber() {
@@ -171,6 +177,49 @@ class ClimberServiceTest {
     void shouldNotDeleteClimberIfInvalidId() {
         when(climberRepository.deleteClimberById(5)).thenReturn(false);
         assertFalse(climberService.deleteClimberById(5));
+    }
+
+    @Test
+    void shouldAddRouteIfValid() {
+        ClimberRoute climberRoute = new ClimberRoute();
+        Climber climber = new Climber();
+        Route route = new Route();
+
+        climberRoute.setClimber(climber);
+        climberRoute.setRoute(route);
+        when(climberRouteRepository.add(climberRoute)).thenReturn(true);
+        Result<Void> result = climberService.addRoute(climberRoute);
+        assertEquals(0, result.getMessages().size());
+    }
+
+    @Test
+    void shouldNotAddRouteIfNull() {
+        Result<Void> result = climberService.addRoute(null);
+        assertEquals(1, result.getMessages().size());
+    }
+
+    @Test
+    void shouldNotAddRouteIfClimberIsNull() {
+        ClimberRoute climberRoute = new ClimberRoute();
+        Route route = new Route();
+
+        climberRoute.setClimber(null);
+        climberRoute.setRoute(route);
+
+        Result<Void> result = climberService.addRoute(climberRoute);
+        assertEquals(1, result.getMessages().size());
+    }
+
+    @Test
+    void shouldNotAddRouteIfRouteIsNull() {
+        ClimberRoute climberRoute = new ClimberRoute();
+        Climber climber = new Climber();
+
+        climberRoute.setClimber(climber);
+        climberRoute.setRoute(null);
+
+        Result<Void> result = climberService.addRoute(climberRoute);
+        assertEquals(1, result.getMessages().size());
     }
 
     private Climber createClimber(int climberId) {

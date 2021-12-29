@@ -38,8 +38,8 @@ create table climber (
 );
 
 create table climber_route (
-	climber_id int,
-    route_id int,
+	climber_id int not null,
+    route_id int not null,
     constraint pk_climber_route
 		primary key (climber_id, route_id),
 	constraint fk_climber_route_climber_id
@@ -89,25 +89,23 @@ insert into route_grade (grading_system, grade_level)
     ('YOSEMITE', '5.12d');
 
 insert into gym (gym_name, city, state)
-		values
-		('Test 1 name', 'test 1 city', 'AA'),
-		('Test 2 name', 'test 2 city', 'BB'),
-		('Test 3 name', 'test 3 city', 'CC');
-		
-	insert into route (gym_id, route_grade_id, route_type, attempts)
-		values
-		(1, 1, 'BOULDERING', 1),
-		(2, 2, 'BOULDERING', 2),
-		(3, 23, 'TOP_ROPE', 3);
-		
-	insert into climber (climber_name, climber_age, length_of_time_climbing)
-		values
-		('Joe', 24, 4),
-		('John', 30, 1),
-		('Jane', 32, 10);
-		
-	insert into climber_route (climber_id, route_id)
-		values
-		(1, 1),
-		(2, 2),
-		(3, 3);
+	values
+	('Test 1 name', 'test 1 city', 'AA'),
+	('Test 2 name', 'test 2 city', 'BB'),
+	('Test 3 name', 'test 3 city', 'CC');
+	
+insert into route (gym_id, route_grade_id, route_type, attempts)
+	values
+	(1, 1, 'BOULDERING', 1),
+	(2, 2, 'BOULDERING', 2),
+	(3, 23, 'TOP_ROPE', 3);
+	
+insert into climber (climber_name, climber_age, length_of_time_climbing)
+	values
+	('Kayti', 24, 5);
+	
+insert into climber_route (climber_id, route_id)
+	values
+	(1, 1),
+	(1, 2),
+	(1, 3);

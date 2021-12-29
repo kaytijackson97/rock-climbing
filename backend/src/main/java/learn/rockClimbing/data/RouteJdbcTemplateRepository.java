@@ -6,7 +6,6 @@ import learn.rockClimbing.data.mappers.RouteMapper;
 import learn.rockClimbing.models.Gym;
 import learn.rockClimbing.models.Route;
 import learn.rockClimbing.models.RouteGrade;
-import learn.rockClimbing.models.RouteType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;

@@ -1,7 +1,9 @@
 package learn.rockClimbing.domain;
 
 import learn.rockClimbing.data.ClimberRepository;
+import learn.rockClimbing.data.ClimberRouteRepository;
 import learn.rockClimbing.models.Climber;
+import learn.rockClimbing.models.ClimberRoute;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +11,11 @@ import java.util.List;
 @Service
 public class ClimberService {
     private final ClimberRepository climberRepository;
+    private final ClimberRouteRepository climberRouteRepository;
 
-    public ClimberService(ClimberRepository climberRepository) {
+    public ClimberService(ClimberRepository climberRepository, ClimberRouteRepository climberRouteRepository) {
         this.climberRepository = climberRepository;
+        this.climberRouteRepository = climberRouteRepository;
     }
 
     public List<Climber> findAllClimbers() {
@@ -62,6 +66,23 @@ public class ClimberService {
         return climberRepository.deleteClimberById(climberId);
     }
 
+    public Result<Void> addRoute(ClimberRoute climberRoute) {
+        Result<Void> result = validateClimberRoute(climberRoute);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        if (!climberRouteRepository.add(climberRoute)) {
+            result.addMessage("Route not added.", ResultType.INVALID);
+        }
+
+        return result;
+    }
+
+    public boolean deleteRouteByKey(int climberId, int routeId) {
+        return climberRouteRepository.deleteByKey(climberId, routeId);
+    }
+
     private Result<Climber> validateClimber(Climber climber) {
         Result<Climber> result = new Result<>();
 
@@ -86,6 +107,25 @@ public class ClimberService {
             result.addMessage(message, ResultType.INVALID);
             return result;
         }
+        return result;
+    }
+
+    private Result<Void> validateClimberRoute(ClimberRoute climberRoute) {
+        Result<Void> result = new Result<>();
+        if (climberRoute == null) {
+            result.addMessage("climberRoute cannot be null.", ResultType.INVALID);
+            return result;
+        }
+
+        if (climberRoute.getClimber() == null) {
+            result.addMessage("Climber cannot be null.", ResultType.INVALID);
+            return result;
+        }
+
+        if (climberRoute.getRoute() == null) {
+            result.addMessage("Route cannot be null.", ResultType.INVALID);
+        }
+
         return result;
     }
 }

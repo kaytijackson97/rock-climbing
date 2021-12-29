@@ -8,6 +8,7 @@ export const API_ENDPOINTS = {
     FETCH_ROUTE_BY_GYM_AND_CLIMBER: 'api/route/gym/:gymId/climber/:climberId',
     FETCH_ROUTE_GRADE: 'api/route-grade',
     FETCH_ROUTE_GRADE_BY_GRADING_SYSTEM: 'api/route-grade/grading-system',
+    FETCH_CLIMBER_ROUTE: 'api/climber/route',
 };
 
 export const CLIENT_ENDPOINTS = {

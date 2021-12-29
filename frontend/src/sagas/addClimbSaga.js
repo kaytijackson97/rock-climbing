@@ -2,23 +2,19 @@ import { put, takeLatest } from 'redux-saga/effects';
 import types from '../actions/climbs.action';
 import { API_ENDPOINTS } from '../constants/Routes';
 
-export function* addClimbSaga() {
-    yield takeLatest(types.ADD_CLIMB, addClimb);
-}
-
-function* addClimb(climb) {
-    const { FETCH_CLIMB } = API_ENDPOINTS;
+function* addClimb({ climb, climber }) {
+    const { FETCH_CLIMB, FETCH_CLIMBER_ROUTE } = API_ENDPOINTS;
     let newClimb;
 
-    const init = {
+    const routeInit = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(climb),
-        };
+    };
 
-    yield fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMB}`, init)
+    yield fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMB}`, routeInit)
     .then(response => {
         if (response.status !== 201) {
             return Promise.reject("Add climb failed.");
@@ -28,5 +24,31 @@ function* addClimb(climb) {
     .then(json => {newClimb = json})
     .catch(console.log);
 
-    yield put(addClimb(newClimb));
+    const climberRouteInit = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            climber,
+            route: newClimb,
+        }),
+    }
+
+    yield fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMBER_ROUTE}`, climberRouteInit)
+    .then(response => {
+        if (response.status !== 201) {
+            return Promise.reject("Add climb to bridge table failed.");
+        }
+        return response.json();
+    })
+    .catch(console.log);
+
+    // update redux store
+    yield put({ type: 'ADD_CLIMB_RESULT', payload: newClimb });
+    yield put({ type: 'ADD_CLIMB_TO_CLIMBER', payload: { id: climber.climberId, newClimb } });
+}
+
+export function* addClimbSaga() {
+    yield takeLatest(types.ADD_CLIMB, addClimb);
 }

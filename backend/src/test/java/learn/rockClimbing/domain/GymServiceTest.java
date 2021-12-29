@@ -2,7 +2,6 @@ package learn.rockClimbing.domain;
 
 import learn.rockClimbing.data.GymRepository;
 import learn.rockClimbing.models.Gym;
-import learn.rockClimbing.models.Route;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
