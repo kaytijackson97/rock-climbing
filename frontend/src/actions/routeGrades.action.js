@@ -14,9 +14,9 @@ export const getAllRouteGrades = () => {
     };
 }
 
-export const populateRouteGrades = ({ routeGrades }) => {
+export const populateRouteGrades = (routeGrades) => {
     return { 
         type: types.POPULATE_ROUTE_GRADES, 
-        routeGrades,
+        payload: routeGrades,
     };
 }

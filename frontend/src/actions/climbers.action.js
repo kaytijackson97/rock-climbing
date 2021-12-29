@@ -37,9 +37,9 @@ export const deleteClimber = ({ id }) => {
     };
 }
 
-export const populateClimbers = ({ climbers }) => {
+export const populateClimbers = (climbers) => {
     return { 
         type: types.POPULATE_CLIMBERS, 
-        climbers,
+        payload: climbers,
     };
 }

@@ -36,9 +36,9 @@ export const deleteGym = ({ id }) => {
     };
 }
 
-export const populateGyms = ({ gyms }) => {
+export const populateGyms = (gyms) => {
     return { 
         type: types.POPULATE_GYMS, 
-        gyms,
+        payload: gyms,
     };
 }
