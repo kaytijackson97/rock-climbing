@@ -3,11 +3,14 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { toastr } from 'react-redux-toastr';
 import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 
+// Constants
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 import { ROCK_CLIMBING_CONSTANTS } from '../../constants/RockClimbingConstants';
+import { CLIMB_VALIDATIONS } from '../../constants/Validations';
 
 import CustomDropDown from '../customComponents/CustomDropDown';
 import CustomDatePicker from '../customComponents/CustomDatePicker';
@@ -26,7 +29,6 @@ function AddClimb() {
     const routeGrades = useSelector(state => state.routeGrades);
     const climbers = useSelector(state => state.climbers);
 
-    const [currentClimber, setCurrentClimber] = useState(climbers[0]);
     const [gym, setGym] = useState({});
     const [routeType, setRouteType] = useState("");
     const [routeGrade, setRouteGrade] = useState({});
@@ -34,11 +36,27 @@ function AddClimb() {
     const [attempts, setAttempts] = useState(1);
     const [setDate, setSetDate] = useState(new Date());
 
+    const [currentClimber, setCurrentClimber] = useState(climbers[0]);
+
+    // Errors
+    const [gymError, setGymError] = useState('');
+    const [routeTypeError, setRouteTypeError] = useState('');
+    const [gradeError, setGradeError] = useState('');
+
     function changeGym() {
         const chosenGym = document.getElementById("gymChoice").value;
-        setGym(_find(gyms, {'name': chosenGym}));
+        const filteredGym = _find(gyms, {'name': chosenGym});
+
+        if (!filteredGym) {
+            setGymError(CLIMB_VALIDATIONS.MISSING_GYM);
+        } else {
+            setGymError('');
+        }
+
+        setGym(filteredGym);
     }
 
+    // TODO: route type validation
     function changeRouteType() {
         setFilteredRouteGrades(routeGrades);
         const chosenRouteType = document.getElementById("routeTypeChoice").value;
@@ -53,17 +71,35 @@ function AddClimb() {
             setFilteredRouteGrades(routeGrades);
         }
 
+        if (!chosenRouteType) {
+
+        }
+
         setRouteType(chosenRouteType);
     }
 
     function changeRouteGrade() {
         const chosenRouteGrade = document.getElementById('routeGradeChoice').value;
-        setRouteGrade(_find(routeGrades, {'gradeLevel': chosenRouteGrade}));
+        const filteredRouteGrade = _find(routeGrades, {'gradeLevel': chosenRouteGrade});
+
+        if (!filteredRouteGrade) {
+            setGradeError(CLIMB_VALIDATIONS.MISSING_GRADE);
+        } else {
+            setGradeError('');
+        }
+
+        setRouteGrade(filteredRouteGrade);
     }
 
     function handleSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
+
+        // TODO: fix error toastr
+        if (gymError.length > 0 || routeTypeError.length > 0 || gradeError.length > 0) {
+            toastr.error('Check Invalid Fields.');
+            return;
+        };
 
         dispatch(addClimb({
             climb: {
@@ -76,7 +112,7 @@ function AddClimb() {
             climber: currentClimber,
         }));
         history.push(MY_CLIMBS);
-    }
+    };
 
     return (
         <div className="card">
@@ -89,6 +125,7 @@ function AddClimb() {
                         onChange={changeGym}
                         defaultOption={"Chose a Gym"}
                         options={gyms.map(g => <option key={g.gymId}>{g.name}</option>)}
+                        error={gymError}
                     />
                     <CustomDropDown 
                         dropDownLabel={"Route Type"}
@@ -97,6 +134,7 @@ function AddClimb() {
                         defaultOption={"Chose a Route Type"}
                         //TODO: add key for this guy
                         options={routeTypes.map(rt => <option>{rt}</option>)}
+                        error={routeTypeError}
                     />
                     <CustomDropDown
                         dropDownLabel={"Grade"}
@@ -104,6 +142,7 @@ function AddClimb() {
                         onChange={changeRouteGrade}
                         defaultOption={"Chose a Grade"}
                         options={filteredRouteGrades.map(rg => <option key={rg.routeGradeId}>{rg.gradeLevel}</option>)}
+                        error={gradeError}
                     />
                     <CustomDatePicker 
                         datePickerLabel={"Set Date"}
