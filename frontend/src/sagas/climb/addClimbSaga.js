@@ -47,6 +47,7 @@ function* addClimb({ climb, climber }) {
     // update redux store
     yield put({ type: 'ADD_CLIMB_RESULT', payload: newClimb });
     yield put({ type: 'ADD_CLIMB_TO_CLIMBER', payload: { id: climber.climberId, newClimb } });
+    yield put({ type: 'ADD_CLIMB_TO_CURRENT_CLIMBER', payload: { newClimb } });
 }
 
 export function* addClimbSaga() {

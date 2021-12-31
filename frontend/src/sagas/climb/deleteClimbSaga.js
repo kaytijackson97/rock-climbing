@@ -33,6 +33,7 @@ function* deleteClimb({ id, climber }) {
 
     yield put({ type: 'DELETE_CLIMB_RESULT', id });
     yield put({ type: 'UPDATE_CLIMBER', payload: { id: climber.climberId, climber: newClimber }});
+    yield put({ type: 'UPDATE_CURRENT_CLIMBER', climber: newClimber });
 };
 
 export function* deleteClimbSaga() {

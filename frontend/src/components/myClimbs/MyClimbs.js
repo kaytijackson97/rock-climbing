@@ -6,7 +6,7 @@ import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 function MyClimbs() {
     const { ADD_CLIMB } = CLIENT_ENDPOINTS;
 
-    const currentClimber = useSelector((state) => state.currentClimber);
+    const currentClimber = useSelector((state) => state.currentClimber?.climbs);
     const climbs = currentClimber?.climbs || [];
 
     return (

@@ -1,4 +1,4 @@
-// TODO: fix delete and add not updating climb table
+// TODO: fix add not updating climb table
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
