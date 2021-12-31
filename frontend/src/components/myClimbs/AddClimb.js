@@ -28,14 +28,12 @@ function AddClimb() {
 
     const gyms = useSelector(state => state.gyms);
     const routeGrades = useSelector(state => state.routeGrades);
-    const climbers = useSelector(state => state.climbers);
     const currentClimber = useSelector(state => state.currentClimber);
 
     const [gym, setGym] = useState({});
     const [routeType, setRouteType] = useState("");
     const [routeGrade, setRouteGrade] = useState({});
     const [filteredRouteGrades, setFilteredRouteGrades] = useState(routeGrades);
-    const [attempts, setAttempts] = useState(1);
     const [setDate, setSetDate] = useState(new Date());
 
     // Errors
@@ -107,7 +105,7 @@ function AddClimb() {
                 gym,
                 routeType,
                 routeGrade,
-                attempts,
+                attempts: 1,
                 setDate,
             },
             climber: currentClimber,
