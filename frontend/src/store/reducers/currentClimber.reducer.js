@@ -4,7 +4,7 @@ const reducer = (state = initialCurrentClimber, action) => {
     switch(action.type) {
         case types.ADD_CLIMB_TO_CURRENT_CLIMBER:
             let newClimber = [...state];
-            const climbs = newClimber.climbs.concat({ ...action.payload.newClimb });
+            const climbs = newClimber.climbs.concat({ ...action.newClimb });
             newClimber.climbs = climbs;
             return newClimber;
 
