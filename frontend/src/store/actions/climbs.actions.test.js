@@ -43,10 +43,15 @@ describe('climb actions', () => {
 
     test('deleteClimb', () => {
         const id = 1;
+        climber = {
+            climberId: 1,
+            name: 'test name',
+        }
 
         const expected = {
             type: types.DELETE_CLIMB,
             id,
+            climber,
         };
         expect(deleteClimb({ id })).toEqual(expected);
     });

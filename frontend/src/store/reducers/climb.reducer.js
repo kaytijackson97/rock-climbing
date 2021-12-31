@@ -11,7 +11,7 @@ const reducer = (state = initialClimbs, action) => {
             newClimbs = state.concat({ ...action.payload });
             return newClimbs;
 
-        case types.DELETE_CLIMB:
+        case types.DELETE_CLIMB_RESULT:
             newClimbs = state.filter(climb => climb.routeId !== action.id);
             return newClimbs;
 

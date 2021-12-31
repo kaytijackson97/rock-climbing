@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -165,7 +166,15 @@ public class RouteJdbcTemplateRepository implements RouteRepository {
     }
 
     @Override
+    @Transactional
     public boolean deleteRouteById(int routeId) {
+        jdbcTemplate.update("set sql_safe_updates = 0;");
+
+        final String deleteRouteClimberSql = "delete from climber_route where route_id = ?;";
+        jdbcTemplate.update(deleteRouteClimberSql, routeId);
+
+        jdbcTemplate.update("set sql_safe_updates = 1;");
+
         final String deleteRouteSql = "delete from route where route_Id = ?;";
         return jdbcTemplate.update(deleteRouteSql, routeId) > 0;
     }

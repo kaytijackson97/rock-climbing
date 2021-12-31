@@ -1,8 +1,10 @@
+// TODO: fix delete not updating climb table
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateClimb } from "../../store/actions/climbs.action";
+import { updateClimb, deleteClimb } from "../../store/actions/climbs.action";
 
-function Climb({ climb }) {
+function Climb({ climb, handleDelete }) {
     const climbers = useSelector(state => state.climbers);
 
     const [currentClimber, setCurrentClimber] = useState(climbers[0]);
@@ -40,6 +42,13 @@ function Climb({ climb }) {
         setListedClimb(newClimb);
     }
 
+    function handleDelete(id) {
+        dispatch(deleteClimb({
+            id,
+            climber: currentClimber
+        }));
+    };
+
     return (
         <tr key={listedClimb.routeId}>
             <td>{listedClimb.routeId}</td>
@@ -47,9 +56,12 @@ function Climb({ climb }) {
             <td>{listedClimb.routeGrade.gradeLevel}</td>
             <td>{listedClimb.gym.name}</td>
             <td>
-                <button className= "btn btn-primary" onClick={handleIncrease}>+</button>
+                <button className="btn btn-primary" onClick={handleIncrease}>+</button>
                 <span className="climb-table-spacing">{listedClimb.attempts}</span>
                 <button className= "btn btn-primary" onClick={handleDecrease}>-</button>
+            </td>
+            <td>
+                <button className="btn btn-danger" onClick={() => handleDelete(listedClimb.routeId)}>Delete</button>
             </td>
         </tr>
     );

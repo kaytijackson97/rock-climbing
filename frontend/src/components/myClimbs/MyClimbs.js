@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import Climb from "./Climb";
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 
-import climb from '../../sass/climb.scss';
-
 function MyClimbs() {
     const { ADD_CLIMB } = CLIENT_ENDPOINTS;
+
     const climbs = useSelector((state) => state.climbers[0]?.climbs);
 
     return (

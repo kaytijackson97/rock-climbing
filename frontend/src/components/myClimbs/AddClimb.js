@@ -1,4 +1,5 @@
 // TODO: figure out why enum isn't working with fetch call
+// TODO: finish validation for invalid form
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { toastr } from 'react-redux-toastr';
 import _find from 'lodash/find';
 import _filter from 'lodash/filter';
+import _includes from 'lodash/includes';
 
 // Constants
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
@@ -56,7 +58,6 @@ function AddClimb() {
         setGym(filteredGym);
     }
 
-    // TODO: route type validation
     function changeRouteType() {
         setFilteredRouteGrades(routeGrades);
         const chosenRouteType = document.getElementById("routeTypeChoice").value;
@@ -71,8 +72,10 @@ function AddClimb() {
             setFilteredRouteGrades(routeGrades);
         }
 
-        if (!chosenRouteType) {
-
+        if (!routeTypes.includes(chosenRouteType)) {
+            setRouteTypeError(CLIMB_VALIDATIONS.MISSING_ROUTE_TYPE);
+        } else {
+            setRouteTypeError('');
         }
 
         setRouteType(chosenRouteType);
@@ -132,7 +135,7 @@ function AddClimb() {
                         selectId={"routeTypeChoice"}
                         onChange={changeRouteType}
                         defaultOption={"Chose a Route Type"}
-                        //TODO: add key for this guy
+                        // TODO: add key for this guy
                         options={routeTypes.map(rt => <option>{rt}</option>)}
                         error={routeTypeError}
                     />

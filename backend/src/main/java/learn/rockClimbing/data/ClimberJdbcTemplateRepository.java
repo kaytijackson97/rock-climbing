@@ -105,8 +105,8 @@ public class ClimberJdbcTemplateRepository implements ClimberRepository {
     public boolean deleteClimberById(int climberId) {
         jdbcTemplate.update("set sql_safe_updates = 0;");
 
-        final String deleteClimberGymSql = "delete from climber_route where climber_id = ?;";
-        jdbcTemplate.update(deleteClimberGymSql, climberId);
+        final String deleteClimberRouteSql = "delete from climber_route where climber_id = ?;";
+        jdbcTemplate.update(deleteClimberRouteSql, climberId);
 
         jdbcTemplate.update("set sql_safe_updates = 1;");
 

@@ -21,6 +21,8 @@ import {
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import climb from './sass/climb.scss';
+
 function App() {
   const dispatch = useDispatch();
   const { 
