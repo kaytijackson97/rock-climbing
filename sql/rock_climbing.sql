@@ -102,7 +102,10 @@ insert into route (gym_id, route_grade_id, route_type, attempts)
 	
 insert into climber (climber_name, climber_age, length_of_time_climbing)
 	values
-	('Kayti', 24, 5);
+	('Kayti', 24, 5),
+    ('Joe', 24, 4),
+	('John', 30, 1),
+	('Jane', 32, 10);
 	
 insert into climber_route (climber_id, route_id)
 	values
