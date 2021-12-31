@@ -103,7 +103,7 @@ describe('climb reducer tests', () => {
         ]
 
         const action = {
-            type: types.DELETE_CLIMB,
+            type: types.DELETE_CLIMB_RESULT,
             id: 2,
         };
 

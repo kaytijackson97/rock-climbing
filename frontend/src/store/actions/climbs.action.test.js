@@ -43,7 +43,7 @@ describe('climb actions', () => {
 
     test('deleteClimb', () => {
         const id = 1;
-        climber = {
+        const climber = {
             climberId: 1,
             name: 'test name',
         }
@@ -53,7 +53,7 @@ describe('climb actions', () => {
             id,
             climber,
         };
-        expect(deleteClimb({ id })).toEqual(expected);
+        expect(deleteClimb({ id, climber })).toEqual(expected);
     });
 
     test('populateClimbs', () => {
