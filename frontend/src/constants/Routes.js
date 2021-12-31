@@ -14,6 +14,7 @@ export const API_ENDPOINTS = {
 export const CLIENT_ENDPOINTS = {
     MY_CLIMBS: '/my-climbs',
     ADD_CLIMB: '/climb/add',
+    ADD_CLIMBER: '/climber/add',
     CLIMBERS: '/climbers',
     CLIMBER_PROFILE: '/climber',
 }

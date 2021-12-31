@@ -1,6 +1,6 @@
 import { put, take } from 'redux-saga/effects';
-import { API_ENDPOINTS } from '../constants/Routes';
-import { populateClimbers } from '../store/actions/climbers.action';
+import { API_ENDPOINTS } from '../../constants/Routes';
+import { populateClimbers } from '../../store/actions/climbers.action';
 
 export function* getAllClimbers() {
     const { FETCH_CLIMBER } = API_ENDPOINTS;

@@ -4,10 +4,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateClimb, deleteClimb } from "../../store/actions/climbs.action";
 
-function Climb({ climb, handleDelete }) {
-    const climbers = useSelector(state => state.climbers);
+function Climb({ climb }) {
+    const currentClimber = useSelector(state => state.currentClimber);
 
-    const [currentClimber, setCurrentClimber] = useState(climbers[0]);
     const [listedClimb, setListedClimb] = useState(climb);
     let [attempts, setAttempts] = useState(climb.attempts);
 

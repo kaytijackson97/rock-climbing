@@ -7,7 +7,6 @@ import { Link, useHistory } from 'react-router-dom';
 import { toastr } from 'react-redux-toastr';
 import _find from 'lodash/find';
 import _filter from 'lodash/filter';
-import _includes from 'lodash/includes';
 
 // Constants
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
@@ -30,6 +29,7 @@ function AddClimb() {
     const gyms = useSelector(state => state.gyms);
     const routeGrades = useSelector(state => state.routeGrades);
     const climbers = useSelector(state => state.climbers);
+    const currentClimber = useSelector(state => state.currentClimber);
 
     const [gym, setGym] = useState({});
     const [routeType, setRouteType] = useState("");
@@ -37,8 +37,6 @@ function AddClimb() {
     const [filteredRouteGrades, setFilteredRouteGrades] = useState(routeGrades);
     const [attempts, setAttempts] = useState(1);
     const [setDate, setSetDate] = useState(new Date());
-
-    const [currentClimber, setCurrentClimber] = useState(climbers[0]);
 
     // Errors
     const [gymError, setGymError] = useState('');
@@ -135,8 +133,7 @@ function AddClimb() {
                         selectId={"routeTypeChoice"}
                         onChange={changeRouteType}
                         defaultOption={"Chose a Route Type"}
-                        // TODO: add key for this guy
-                        options={routeTypes.map(rt => <option>{rt}</option>)}
+                        options={routeTypes.map(rt => <option key={rt}>{rt}</option>)}
                         error={routeTypeError}
                     />
                     <CustomDropDown

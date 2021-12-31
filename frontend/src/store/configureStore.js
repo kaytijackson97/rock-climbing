@@ -6,6 +6,7 @@ import { initSagas } from '../sagas/index';
 // Reducers
 import climbReducer from '../store/reducers/climb.reducer';
 import climberReducer from '../store/reducers/climber.reducer';
+import currentClimberReducer from '../store/reducers/currentClimber.reducer';
 import gymReducer from '../store/reducers/gyms.reducer';
 import routeGradeReducer from '../store/reducers/routeGrades.reducer';
 
@@ -18,6 +19,7 @@ const configureStore = () => {
         combineReducers({
             climbs: climbReducer,
             climbers: climberReducer,
+            currentClimber: currentClimberReducer,
             gyms: gymReducer,
             routeGrades: routeGradeReducer,
         }), 

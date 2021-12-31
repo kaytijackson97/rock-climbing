@@ -1,7 +1,15 @@
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import Welcome from './components/Welcome';
 import MyClimbs from './components/myClimbs/MyClimbs';
+import ClimberList from './components/climber/ClimberList';
 import AddClimb from './components/myClimbs/AddClimb';
-import ClimberApp from './components/climber/ClimberApp';
 import ClimberProfile from './components/profile/ClimberProfile';
 import Nav from './Nav';
 
@@ -12,14 +20,6 @@ import { getAllClimbs } from './store/actions/climbs.action';
 import { getAllClimbers } from './store/actions/climbers.action';
 import { getAllGyms } from './store/actions/gyms.action';
 import { getAllRouteGrades } from './store/actions/routeGrades.action';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import climb from './sass/climb.scss';
 
@@ -47,7 +47,7 @@ function App() {
           <Route exact path='/' component={Welcome} />
           <Route exact path={`${MY_CLIMBS}`} component={MyClimbs} />
           <Route exact path={`${ADD_CLIMB}`} component={AddClimb} />
-          <Route exact path={`${CLIMBERS}`}  component={ClimberApp} />
+          <Route exact path={`${CLIMBERS}`}  component={ClimberList} />
           <Route exact path={`${CLIMBER_PROFILE}`} component={ClimberProfile} />
         </Switch>
       </Router>
