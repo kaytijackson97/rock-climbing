@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { toastr } from 'react-redux-toastr';
 import _find from 'lodash/find';
 import _filter from 'lodash/filter';
