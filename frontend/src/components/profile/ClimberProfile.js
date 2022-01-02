@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 
 function ClimberProfile() {
-    const dispatch = useDispatch();
+    const history = useHistory();
 
     const { CLIMBERS } = CLIENT_ENDPOINTS;
 
@@ -31,10 +31,8 @@ function ClimberProfile() {
                     <label>{currentClimber.monthsClimbing}</label>
                 </div>
             </div>
-            <button type='button' className='btn btn-primary'>
-                <Link to={`${CLIMBERS}`} className="text-white text-decoration-none">
-                    Switch Climber
-                </Link>
+            <button type='button' className='btn btn-primary' onClick={() => history.push(CLIMBERS)}>
+                Switch Climber
             </button>
         </div>
     );

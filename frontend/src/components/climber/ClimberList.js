@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Climber from "./Climber";
 
 import { getAllClimbers } from '../../store/actions/climbers.action';
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 
 function ClimberList() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const { ADD_CLIMBER } = CLIENT_ENDPOINTS;
 
@@ -34,10 +35,8 @@ function ClimberList() {
                     {climbers ? climbers.map(c => (<Climber key={c.climberId} climber={c} />)) : {}}
                 </tbody>
             </table>
-            <button type="button" className="btn btn-primary">
-                <Link to={`${ADD_CLIMBER}`} className="text-white text-decoration-none">
-                    Create New Climber
-                </Link>
+            <button type="button" className="btn btn-primary" onClick={() => history.push(ADD_CLIMBER)}>
+                Create New Climber
             </button>
         </div>
     );

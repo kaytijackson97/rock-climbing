@@ -148,9 +148,7 @@ function AddClimb() {
                         onChange={date => setSetDate(date)}
                     />
                     <button type="submit" className="btn btn-primary mt-3 mr-3">Submit</button>
-                    <Link to={MY_CLIMBS}>
-                        <button type="button" className="btn btn-primary mt-3 ml-3">Cancel</button>
-                    </Link>
+                    <button type="button" className="btn btn-primary mt-3 ml-3" onClick={() => history.push(MY_CLIMBS)}>Cancel</button>
                 </form>
             </div>
         </div>

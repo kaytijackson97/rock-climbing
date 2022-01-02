@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Climb from "./Climb";
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 
 function MyClimbs() {
+    const history = useHistory();
+
     const { ADD_CLIMB } = CLIENT_ENDPOINTS;
 
     const currentClimber = useSelector((state) => state.currentClimber);
@@ -26,10 +28,8 @@ function MyClimbs() {
                     {climbs.map(c => (<Climb key={c.routeId} climb={c} />))}
                 </tbody>
             </table>
-            <button type="button" className="btn btn-primary">
-                <Link to={`${ADD_CLIMB}`} className="text-white text-decoration-none">
-                    Add Climb
-                </Link>
+            <button type="button" className="btn btn-primary" onClick={() => history.push(ADD_CLIMB)}>
+                Add Climb
             </button>
         </div>
     );
