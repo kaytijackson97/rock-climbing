@@ -1,6 +1,6 @@
-import * as climbSaga from './climb/climbSaga';
-import * as climberSaga from './climber/climberSaga';
-import * as currentClimberSaga from './currentClimber/currentClimberSaga';
+import * as climbSaga from './climbSaga';
+import * as climberSaga from './climberSaga';
+import * as currentClimberSaga from './currentClimberSaga';
 import * as gymSaga from './gymSaga';
 import * as routeGradeSaga from './routeGradeSaga';
 

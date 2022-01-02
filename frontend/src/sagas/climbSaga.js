@@ -1,8 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import { API_ENDPOINTS } from '../../constants/Routes';
-import { populateClimbs } from '../../store/actions/climbs.action';
+import { API_ENDPOINTS } from '../constants/Routes';
+import { populateClimbs } from '../store/actions/climbs.action';
 
-import types from '../../store/actions/climbs.action';
+import types from '../store/actions/climbs.action';
 
 function* getAllClimbs() {
     const { FETCH_ROUTE } = API_ENDPOINTS;
