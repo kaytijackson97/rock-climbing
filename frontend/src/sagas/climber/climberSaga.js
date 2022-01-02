@@ -1,4 +1,4 @@
-import { put, take } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { API_ENDPOINTS } from '../../constants/Routes';
 import { populateClimbers } from '../../store/actions/climbers.action';
 
@@ -7,7 +7,6 @@ export function* getAllClimbers() {
 
     let climbers;
 
-    yield take(getAllClimbers);
     yield fetch(`${process.env.REACT_APP_API_URL}/${FETCH_CLIMBER}`)
     .then(response => {
         if (response.status !== 200) {
