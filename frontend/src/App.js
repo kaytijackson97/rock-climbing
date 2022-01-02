@@ -17,7 +17,6 @@ import { CLIENT_ENDPOINTS } from './constants/Routes';
 
 // Actions
 import { getAllClimbs } from './store/actions/climbs.action';
-import { getAllClimbers } from './store/actions/climbers.action';
 import { getAllGyms } from './store/actions/gyms.action';
 import { getAllRouteGrades } from './store/actions/routeGrades.action';
 
@@ -33,7 +32,6 @@ function App() {
   } = CLIENT_ENDPOINTS
 
   useEffect(() => {
-    dispatch(getAllClimbers());
     dispatch(getAllClimbs());
     dispatch(getAllGyms());
     dispatch(getAllRouteGrades());

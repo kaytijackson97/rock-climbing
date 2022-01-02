@@ -1,10 +1,20 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 import Climber from "./Climber";
 
+import { getAllClimbers } from '../../store/actions/climbers.action';
+
+import { CLIENT_ENDPOINTS } from '../../constants/Routes';
+import { useEffect } from "react";
+
 function ClimberList() {
+    const dispatch = useDispatch();
+
     const { ADD_CLIMBER } = CLIENT_ENDPOINTS;
+
+    useEffect(() => {
+        dispatch(getAllClimbers());
+    }, [dispatch]);
 
     const climbers = useSelector((state) => state.climbers);
 
@@ -21,7 +31,7 @@ function ClimberList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {climbers ? climbers.map(c => (<Climber key={c.routeId} climber={c} />)) : {}}
+                    {climbers ? climbers.map(c => (<Climber key={c.climberId} climber={c} />)) : {}}
                 </tbody>
             </table>
             <button type="button" className="btn btn-primary">

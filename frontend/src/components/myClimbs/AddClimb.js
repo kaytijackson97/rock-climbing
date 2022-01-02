@@ -20,11 +20,11 @@ import CustomDatePicker from '../customComponents/CustomDatePicker';
 import { addClimb } from '../../store/actions/climbs.action';
 
 function AddClimb() {
-    const { MY_CLIMBS } = CLIENT_ENDPOINTS;
-    const { routeTypes, gradeTypes } = ROCK_CLIMBING_CONSTANTS;
-
     const history = useHistory();
     const dispatch = useDispatch();
+
+    const { MY_CLIMBS } = CLIENT_ENDPOINTS;
+    const { routeTypes, gradeTypes } = ROCK_CLIMBING_CONSTANTS;
 
     const gyms = useSelector(state => state.gyms);
     const routeGrades = useSelector(state => state.routeGrades);

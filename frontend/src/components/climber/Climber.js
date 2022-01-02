@@ -5,10 +5,10 @@ import { changeCurrentClimber } from '../../store/actions/currentClimber.action'
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 
 function Climber({ climber }) {
-    const { CLIMBER_PROFILE } = CLIENT_ENDPOINTS;
-
     const dispatch = useDispatch();
     const history = useHistory();
+    
+    const { CLIMBER_PROFILE } = CLIENT_ENDPOINTS;
 
     function handleSelect(climber) {
         dispatch(changeCurrentClimber({ climber }));

@@ -65,7 +65,7 @@ begin
     alter table route_grade auto_increment = 1;
     set sql_safe_updates = 1;
 
-	-- password is set to "P@ssw0rd!"
+	-- password is set to "Password!"
 	insert into route_grade (grading_system, grade_level)
 		values
 		('BOULDERING', 'VIntro'),

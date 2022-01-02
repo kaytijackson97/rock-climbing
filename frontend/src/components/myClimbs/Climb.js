@@ -1,16 +1,14 @@
-// TODO: fix add not updating climb table
-
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateClimb, deleteClimb } from "../../store/actions/climbs.action";
 
 function Climb({ climb }) {
+    const dispatch = useDispatch();
+
     const currentClimber = useSelector(state => state.currentClimber);
 
     const [listedClimb, setListedClimb] = useState(climb);
     let [attempts, setAttempts] = useState(climb.attempts);
-
-    const dispatch = useDispatch();
 
     function handleIncrease() {
         attempts = attempts + 1;

@@ -1,17 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 
 import { CLIENT_ENDPOINTS } from '../../constants/Routes';
 
 function ClimberProfile() {
+    const dispatch = useDispatch();
+
     const { CLIMBERS } = CLIENT_ENDPOINTS;
 
-    const climbers = useSelector((state) => state.climbers);
     let currentClimber = useSelector((state) => state.currentClimber);
-
-    if (!currentClimber) {
-        currentClimber = climbers[0];
-    }
 
     return (
         <div>
